@@ -47,8 +47,8 @@ const Form: React.FC = () => {
   }
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
+    <form onSubmit={handleSubmit} noValidate>
+      <div className="mb-3">
         <TextInput
           id="text1"
           labelText="Text1"
@@ -58,7 +58,7 @@ const Form: React.FC = () => {
         />
       </div>
 
-      <div>
+      <div className="mb-3">
         <TextInput
           id="text2"
           labelText="Text2"
@@ -68,9 +68,9 @@ const Form: React.FC = () => {
         />
       </div>
 
-      <div>
-        <button type="submit">submit</button>
-      </div>
+      <button type="submit" className="btn btn-primary">
+        submit
+      </button>
     </form>
   );
 };

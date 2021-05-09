@@ -20,13 +20,19 @@ const TextInput: React.FC<Props> = ({
   }
 
   return (
-    <div>
-      <label htmlFor={id}>
+    <>
+      <label className="form-label" htmlFor={id}>
         {labelText}:
-        <input type="input" id={id} value={value} onChange={handleChange} />
       </label>
-      {error ? <p>{error}</p> : null}
-    </div>
+      <input
+        type="input"
+        id={id}
+        className={error ? 'form-control is-invalid' : 'form-control'}
+        value={value}
+        onChange={handleChange}
+      />
+      {error ? <div className="invalid-feedback">{error}</div> : null}
+    </>
   );
 };
 
