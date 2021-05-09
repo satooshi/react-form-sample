@@ -6,8 +6,27 @@ type State = {
   text2: string;
 };
 
+type Errors = {
+  text1?: string;
+  text2?: string;
+};
+
+function validate(values: State): Errors {
+  const errors: Errors = {};
+
+  if (values.text1.length === 0) {
+    errors.text1 = 'Required';
+  }
+  if (values.text2.length === 0) {
+    errors.text2 = 'Required';
+  }
+
+  return errors;
+}
+
 const Form: React.FC = () => {
   const [state, setState] = useState({ text1: '', text2: '' } as State);
+  const [errors, setErrors] = useState({} as Errors);
 
   function handleTextChange1(value: string) {
     setState({ ...state, text1: value });
@@ -20,7 +39,11 @@ const Form: React.FC = () => {
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    setState({ ...state, text1: '', text2: '' });
+    const formErrors = validate(state);
+    setErrors({ ...formErrors });
+    if (Object.keys(formErrors).length === 0) {
+      setState({ ...state, text1: '', text2: '' });
+    }
   }
 
   return (
@@ -31,6 +54,7 @@ const Form: React.FC = () => {
           labelText="Text1"
           value={state.text1}
           onChange={handleTextChange1}
+          error={errors.text1}
         />
       </div>
 
@@ -40,6 +64,7 @@ const Form: React.FC = () => {
           labelText="Text2"
           value={state.text2}
           onChange={handleTextChange2}
+          error={errors.text2}
         />
       </div>
 
