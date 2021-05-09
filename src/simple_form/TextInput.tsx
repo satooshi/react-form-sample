@@ -1,4 +1,5 @@
 import React from 'react';
+import ErrorMessage from './ErrorMessage';
 
 type Props = {
   error?: string;
@@ -31,7 +32,7 @@ const TextInput: React.FC<Props> = ({
         value={value}
         onChange={handleChange}
       />
-      {error ? <div className="invalid-feedback">{error}</div> : null}
+      <ErrorMessage error={error} />
     </>
   );
 };
