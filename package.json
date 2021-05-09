@@ -1,0 +1,9 @@
+{
+  "name": "react-form-sample",
+  "version": "0.1",
+  "description": "Reactフォームサンプル",
+  "main": "index.js",
+  "repository": "https://github.com/satooshi/react-form-sample",
+  "author": "Kitamura Satoshi",
+  "license": "MIT"
+}
