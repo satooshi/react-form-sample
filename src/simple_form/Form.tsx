@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
+import TextArea from './TextArea';
 import TextInput from './TextInput';
 
 type State = {
   text1: string;
   text2: string;
+  textArea: string;
 };
 
 type Errors = {
   text1?: string;
   text2?: string;
+  textArea?: string;
 };
 
 function validate(values: State): Errors {
@@ -20,12 +23,19 @@ function validate(values: State): Errors {
   if (values.text2.length === 0) {
     errors.text2 = 'Required';
   }
+  if (values.textArea.length === 0) {
+    errors.textArea = 'Required';
+  }
 
   return errors;
 }
 
 const Form: React.FC = () => {
-  const [state, setState] = useState({ text1: '', text2: '' } as State);
+  const [state, setState] = useState({
+    text1: '',
+    text2: '',
+    textArea: '',
+  } as State);
   const [errors, setErrors] = useState({} as Errors);
 
   function handleTextChange1(value: string) {
@@ -34,6 +44,10 @@ const Form: React.FC = () => {
 
   function handleTextChange2(value: string) {
     setState({ ...state, text2: value });
+  }
+
+  function handleTextAreaChange(value: string) {
+    setState({ ...state, textArea: value });
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -65,6 +79,16 @@ const Form: React.FC = () => {
           value={state.text2}
           onChange={handleTextChange2}
           error={errors.text2}
+        />
+      </div>
+
+      <div className="mb-3">
+        <TextArea
+          id="text-area"
+          labelText="Text Area"
+          value={state.textArea}
+          onChange={handleTextAreaChange}
+          error={errors.textArea}
         />
       </div>
 
