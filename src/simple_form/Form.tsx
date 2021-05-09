@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import RadioList from './RadioList';
 import TextArea from './TextArea';
 import TextInput from './TextInput';
 
@@ -6,12 +7,14 @@ type State = {
   text1: string;
   text2: string;
   textArea: string;
+  radioList: string;
 };
 
 type Errors = {
   text1?: string;
   text2?: string;
   textArea?: string;
+  radioList?: string;
 };
 
 function validate(values: State): Errors {
@@ -26,6 +29,9 @@ function validate(values: State): Errors {
   if (values.textArea.length === 0) {
     errors.textArea = 'Required';
   }
+  if (values.radioList.length === 0) {
+    errors.radioList = 'Required';
+  }
 
   return errors;
 }
@@ -35,6 +41,7 @@ const Form: React.FC = () => {
     text1: '',
     text2: '',
     textArea: '',
+    radioList: '',
   } as State);
   const [errors, setErrors] = useState({} as Errors);
 
@@ -48,6 +55,10 @@ const Form: React.FC = () => {
 
   function handleTextAreaChange(value: string) {
     setState({ ...state, textArea: value });
+  }
+
+  function handleRadioListChange(value: string) {
+    setState({ ...state, radioList: value });
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -89,6 +100,17 @@ const Form: React.FC = () => {
           value={state.textArea}
           onChange={handleTextAreaChange}
           error={errors.textArea}
+        />
+      </div>
+
+      <div className="mb-3">
+        <RadioList
+          id="radio-list"
+          labelText="Radio List"
+          value={state.radioList}
+          onChange={handleRadioListChange}
+          error={errors.radioList}
+          options={['radio1', 'radio2', 'radio3']}
         />
       </div>
 
