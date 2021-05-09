@@ -6,8 +6,7 @@
     "extends": [
         "plugin:react/recommended",
         "airbnb",
-        "prettier",
-        "prettier/@typescript-eslint"
+        "prettier"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -22,7 +21,17 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "react/jsx-filename-extension": [1, { "extensions": [".tsx", ".jsx"] }],
-        "indent": ["error", 2]
+        "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "peerDependencies": true}],
+        "react/jsx-filename-extension": ["error", { "extensions": [".tsx", ".jsx"] }],
+        "indent": ["error", 2],
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": ["error"],
+        "import/extensions": "off",
+        "import/no-unresolved": "off",
+        "react/jsx-uses-react": "error",
+        "react/jsx-uses-vars": "error",
+        "react/prop-types": "off",
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": "error"
     }
 }
