@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import RadioList from './RadioList';
+import Select from './Select';
 import TextArea from './TextArea';
 import TextInput from './TextInput';
 
@@ -8,6 +9,7 @@ type State = {
   text2: string;
   textArea: string;
   radioList: string;
+  select: string;
 };
 
 type Errors = {
@@ -15,6 +17,15 @@ type Errors = {
   text2?: string;
   textArea?: string;
   radioList?: string;
+  select?: string;
+};
+
+const initState: State = {
+  text1: '',
+  text2: '',
+  textArea: '',
+  radioList: '',
+  select: '',
 };
 
 function validate(values: State): Errors {
@@ -32,17 +43,15 @@ function validate(values: State): Errors {
   if (values.radioList.length === 0) {
     errors.radioList = 'Required';
   }
+  if (values.select.length === 0) {
+    errors.select = 'Required';
+  }
 
   return errors;
 }
 
 const Form: React.FC = () => {
-  const [state, setState] = useState({
-    text1: '',
-    text2: '',
-    textArea: '',
-    radioList: '',
-  } as State);
+  const [state, setState] = useState(initState);
   const [errors, setErrors] = useState({} as Errors);
 
   function handleTextChange1(value: string) {
@@ -61,13 +70,20 @@ const Form: React.FC = () => {
     setState({ ...state, radioList: value });
   }
 
+  function handleSelectChange(value: string) {
+    setState({ ...state, select: value });
+  }
+
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const formErrors = validate(state);
     setErrors({ ...formErrors });
     if (Object.keys(formErrors).length === 0) {
-      setState({ ...state, text1: '', text2: '' });
+      setState({
+        ...state,
+        ...initState,
+      });
     }
   }
 
@@ -100,6 +116,17 @@ const Form: React.FC = () => {
           value={state.textArea}
           onChange={handleTextAreaChange}
           error={errors.textArea}
+        />
+      </div>
+
+      <div className="mb-3">
+        <Select
+          id="select"
+          labelText="Select"
+          value={state.select}
+          onChange={handleSelectChange}
+          error={errors.select}
+          options={['option1', 'option2', 'option3']}
         />
       </div>
 
