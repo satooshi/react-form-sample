@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import RadioList from './RadioList';
 import Select from './Select';
+import Switch from './Switch';
 import TextArea from './TextArea';
 import TextInput from './TextInput';
 
@@ -10,6 +11,7 @@ type State = {
   textArea: string;
   radioList: string;
   select: string;
+  switch: string;
 };
 
 type Errors = {
@@ -18,6 +20,7 @@ type Errors = {
   textArea?: string;
   radioList?: string;
   select?: string;
+  switch?: string;
 };
 
 const initState: State = {
@@ -26,6 +29,7 @@ const initState: State = {
   textArea: '',
   radioList: '',
   select: '',
+  switch: '',
 };
 
 function validate(values: State): Errors {
@@ -45,6 +49,9 @@ function validate(values: State): Errors {
   }
   if (values.select.length === 0) {
     errors.select = 'Required';
+  }
+  if (values.switch.length === 0) {
+    errors.switch = 'Required';
   }
 
   return errors;
@@ -72,6 +79,10 @@ const Form: React.FC = () => {
 
   function handleSelectChange(value: string) {
     setState({ ...state, select: value });
+  }
+
+  function handleSwitchChange(value: string) {
+    setState({ ...state, switch: value });
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -138,6 +149,17 @@ const Form: React.FC = () => {
           onChange={handleRadioListChange}
           error={errors.radioList}
           options={['radio1', 'radio2', 'radio3']}
+        />
+      </div>
+
+      <div className="mb-3">
+        <Switch
+          id="switch"
+          labelText="Switch here"
+          value="nyan"
+          checkedValue={state.switch}
+          onChange={handleSwitchChange}
+          error={errors.switch}
         />
       </div>
 
