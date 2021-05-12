@@ -11,7 +11,7 @@ type State = {
   textArea: string;
   radioList: string;
   select: string;
-  switch: string;
+  switch: boolean;
 };
 
 type Errors = {
@@ -29,7 +29,7 @@ const initState: State = {
   textArea: '',
   radioList: '',
   select: '',
-  switch: '',
+  switch: false,
 };
 
 function validate(values: State): Errors {
@@ -50,7 +50,7 @@ function validate(values: State): Errors {
   if (values.select.length === 0) {
     errors.select = 'Required';
   }
-  if (values.switch.length === 0) {
+  if (values.switch === false) {
     errors.switch = 'Required';
   }
 
@@ -81,7 +81,7 @@ const Form: React.FC = () => {
     setState({ ...state, select: value });
   }
 
-  function handleSwitchChange(value: string) {
+  function handleSwitchChange(value: boolean) {
     setState({ ...state, switch: value });
   }
 
@@ -157,7 +157,7 @@ const Form: React.FC = () => {
           id="switch"
           labelText="Switch here"
           value="nyan"
-          checkedValue={state.switch}
+          checked={state.switch}
           onChange={handleSwitchChange}
           error={errors.switch}
         />

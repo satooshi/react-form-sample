@@ -2,35 +2,35 @@ import React from 'react';
 import ErrorMessage from './ErrorMessage';
 
 type Props = {
+  checked: boolean;
   error?: string;
   id: string;
   labelText: string;
-  onChange: (value: string) => void; // TODO: onClick might be better than onChange
+  onChange: (value: boolean) => void;
   value: string;
-  checkedValue: string;
 };
 
 const Switch: React.FC<Props> = ({
+  checked,
   error,
   id,
   labelText,
   onChange,
   value,
-  checkedValue,
 }) => {
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    onChange(event.target.checked ? event.target.value : '');
+    onChange(event.target.checked);
   }
 
   return (
     <div className="form-check form-switch">
       <input
+        checked={checked}
         className={error ? 'form-check-input is-invalid' : 'form-check-input'}
-        type="checkbox"
         id={id}
         onChange={handleChange}
+        type="checkbox"
         value={value}
-        checked={value === checkedValue}
       />
       <label className="form-check-label" htmlFor={id}>
         {labelText}
