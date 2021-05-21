@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import InlineCheckList, { ValueState } from './InlineCheckList';
 import RadioList from './RadioList';
 import Select from './Select';
 import Switch from './Switch';
@@ -12,6 +13,7 @@ type State = {
   radioList: string;
   select: string;
   switch: boolean;
+  inlineCheck: ValueState;
 };
 
 type Errors = {
@@ -21,6 +23,7 @@ type Errors = {
   radioList?: string;
   select?: string;
   switch?: string;
+  inlineCheck?: string;
 };
 
 const initState: State = {
@@ -30,6 +33,7 @@ const initState: State = {
   radioList: '',
   select: '',
   switch: false,
+  inlineCheck: {} as ValueState,
 };
 
 function validate(values: State): Errors {
@@ -52,6 +56,9 @@ function validate(values: State): Errors {
   }
   if (values.switch === false) {
     errors.switch = 'Required';
+  }
+  if (!Object.values(values.inlineCheck).find((v) => v === true)) {
+    errors.inlineCheck = 'Required';
   }
 
   return errors;
@@ -83,6 +90,10 @@ const Form: React.FC = () => {
 
   function handleSwitchChange(value: boolean) {
     setState({ ...state, switch: value });
+  }
+
+  function handleInlineCheckChange(value: ValueState) {
+    setState({ ...state, inlineCheck: { ...state.inlineCheck, ...value } });
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -144,7 +155,7 @@ const Form: React.FC = () => {
       <div className="mb-3">
         <RadioList
           id="radio-list"
-          labelText="Radio List"
+          labelText="Radio List:"
           value={state.radioList}
           onChange={handleRadioListChange}
           error={errors.radioList}
@@ -160,6 +171,20 @@ const Form: React.FC = () => {
           checked={state.switch}
           onChange={handleSwitchChange}
           error={errors.switch}
+        />
+      </div>
+
+      <div className="mb-3">
+        <InlineCheckList
+          id="switch"
+          labelText="Inline check list:"
+          values={state.inlineCheck}
+          onChange={handleInlineCheckChange}
+          error={errors.inlineCheck}
+          options={[
+            { label: 'check1', value: '1' },
+            { label: 'check2', value: '2' },
+          ]}
         />
       </div>
 
