@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import InlineCheckList, { ValueState } from './InlineCheckList';
+import InlineRadioList from './InlineRadioList';
 import RadioList from './RadioList';
 import Select from './Select';
 import Switch from './Switch';
@@ -14,6 +15,7 @@ type State = {
   select: string;
   switch: boolean;
   inlineCheck: ValueState;
+  inlineRadio: string;
 };
 
 type Errors = {
@@ -24,6 +26,7 @@ type Errors = {
   select?: string;
   switch?: string;
   inlineCheck?: string;
+  inlineRadio?: string;
 };
 
 const initState: State = {
@@ -34,6 +37,7 @@ const initState: State = {
   select: '',
   switch: false,
   inlineCheck: {} as ValueState,
+  inlineRadio: '',
 };
 
 function validate(values: State): Errors {
@@ -59,6 +63,9 @@ function validate(values: State): Errors {
   }
   if (!Object.values(values.inlineCheck).find((v) => v === true)) {
     errors.inlineCheck = 'Required';
+  }
+  if (values.inlineRadio === '') {
+    errors.inlineRadio = 'Required';
   }
 
   return errors;
@@ -94,6 +101,10 @@ const Form: React.FC = () => {
 
   function handleInlineCheckChange(value: ValueState) {
     setState({ ...state, inlineCheck: { ...state.inlineCheck, ...value } });
+  }
+
+  function handleInlineRadioChange(value: string) {
+    setState({ ...state, inlineRadio: value });
   }
 
   function handleSubmit(e: React.FormEvent) {
@@ -176,11 +187,25 @@ const Form: React.FC = () => {
 
       <div className="mb-3">
         <InlineCheckList
-          id="switch"
+          id="inline-check"
           labelText="Inline check list:"
           values={state.inlineCheck}
           onChange={handleInlineCheckChange}
           error={errors.inlineCheck}
+          options={[
+            { label: 'check1', value: '1' },
+            { label: 'check2', value: '2' },
+          ]}
+        />
+      </div>
+
+      <div className="mb-3">
+        <InlineRadioList
+          id="inline-radio"
+          labelText="Inline radio list:"
+          value={state.inlineRadio}
+          onChange={handleInlineRadioChange}
+          error={errors.inlineRadio}
           options={[
             { label: 'check1', value: '1' },
             { label: 'check2', value: '2' },
