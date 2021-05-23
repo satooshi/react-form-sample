@@ -1,4 +1,11 @@
 import React, { useState } from 'react';
+import FormViewModel, {
+  InlineRadioOption,
+  InlineCheckOptions,
+  SelectOption,
+  Props,
+  Errors,
+} from './FormViewModel';
 import InlineCheckList, { ValueState } from './InlineCheckList';
 import InlineRadioList from './InlineRadioList';
 import RadioList from './RadioList';
@@ -7,117 +14,70 @@ import Switch from './Switch';
 import TextArea from './TextArea';
 import TextInput from './TextInput';
 
-type State = {
-  text1: string;
-  text2: string;
-  textArea: string;
-  radioList: string;
-  select: string;
-  switch: boolean;
-  inlineCheck: ValueState;
-  inlineRadio: string;
-};
-
-type Errors = {
-  text1?: string;
-  text2?: string;
-  textArea?: string;
-  radioList?: string;
-  select?: string;
-  switch?: string;
-  inlineCheck?: string;
-  inlineRadio?: string;
-};
-
-const initState: State = {
+const initState: Props = {
   text1: '',
   text2: '',
   textArea: '',
   radioList: '',
   select: '',
   switch: false,
-  inlineCheck: {} as ValueState,
+  inlineCheck: {} as InlineCheckOptions,
   inlineRadio: '',
 };
 
-// TODO: Run validaiton on change each field after submission
-function validate(values: State): Errors {
-  const errors: Errors = {};
-
-  if (values.text1.length === 0) {
-    errors.text1 = 'Required';
-  }
-  if (values.text2.length === 0) {
-    errors.text2 = 'Required';
-  }
-  if (values.textArea.length === 0) {
-    errors.textArea = 'Required';
-  }
-  if (values.radioList.length === 0) {
-    errors.radioList = 'Required';
-  }
-  if (values.select.length === 0) {
-    errors.select = 'Required';
-  }
-  if (values.switch === false) {
-    errors.switch = 'Required';
-  }
-  if (!Object.values(values.inlineCheck).find((v) => v === true)) {
-    errors.inlineCheck = 'Required';
-  }
-  if (values.inlineRadio === '') {
-    errors.inlineRadio = 'Required';
-  }
-
-  return errors;
-}
-
 const Form: React.FC = () => {
   const [state, setState] = useState(initState);
+  const viewModel = new FormViewModel(state);
   const [errors, setErrors] = useState({} as Errors);
 
   function handleTextChange1(value: string) {
-    setState({ ...state, text1: value });
+    viewModel.text1 = value;
+    setState(viewModel.serialize());
   }
 
   function handleTextChange2(value: string) {
-    setState({ ...state, text2: value });
+    viewModel.text2 = value;
+    setState(viewModel);
   }
 
   function handleTextAreaChange(value: string) {
-    setState({ ...state, textArea: value });
+    viewModel.textArea = value;
+    setState(viewModel);
   }
 
   function handleRadioListChange(value: string) {
-    setState({ ...state, radioList: value });
+    viewModel.radioList = value;
+    setState(viewModel);
   }
 
   function handleSelectChange(value: string) {
-    setState({ ...state, select: value });
+    viewModel.select = value as SelectOption;
+    setState(viewModel);
   }
 
   function handleSwitchChange(value: boolean) {
-    setState({ ...state, switch: value });
+    viewModel.switch = value;
+    setState(viewModel);
   }
 
   function handleInlineCheckChange(value: ValueState) {
-    setState({ ...state, inlineCheck: { ...state.inlineCheck, ...value } });
+    viewModel.replaceInlineCheck(value as InlineCheckOptions);
+    setState(viewModel);
   }
 
   function handleInlineRadioChange(value: string) {
-    setState({ ...state, inlineRadio: value });
+    viewModel.inlineRadio = value as InlineRadioOption;
+    setState(viewModel);
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
-    const formErrors = validate(state);
+    const formErrors = viewModel.validate();
     setErrors({ ...formErrors });
+
     if (Object.keys(formErrors).length === 0) {
-      setState({
-        ...state,
-        ...initState,
-      });
+      setState(new FormViewModel(initState));
     }
   }
 
@@ -127,7 +87,7 @@ const Form: React.FC = () => {
         <TextInput
           id="text1"
           labelText="Text1"
-          value={state.text1}
+          value={viewModel.text1}
           onBlur={handleTextChange1}
           error={errors.text1}
         />
@@ -137,7 +97,7 @@ const Form: React.FC = () => {
         <TextInput
           id="text2"
           labelText="Text2"
-          value={state.text2}
+          value={viewModel.text2}
           onChange={handleTextChange2}
           error={errors.text2}
         />
@@ -147,7 +107,7 @@ const Form: React.FC = () => {
         <TextArea
           id="text-area"
           labelText="Text Area"
-          value={state.textArea}
+          value={viewModel.textArea}
           onChange={handleTextAreaChange}
           error={errors.textArea}
         />
@@ -157,7 +117,7 @@ const Form: React.FC = () => {
         <Select
           id="select"
           labelText="Select"
-          value={state.select}
+          value={viewModel.select}
           onChange={handleSelectChange}
           error={errors.select}
           options={['option1', 'option2', 'option3']}
@@ -168,7 +128,7 @@ const Form: React.FC = () => {
         <RadioList
           id="radio-list"
           labelText="Radio List:"
-          value={state.radioList}
+          value={viewModel.radioList}
           onChange={handleRadioListChange}
           error={errors.radioList}
           options={['radio1', 'radio2', 'radio3']}
@@ -180,7 +140,7 @@ const Form: React.FC = () => {
           id="switch"
           labelText="Switch here"
           value="nyan"
-          checked={state.switch}
+          checked={viewModel.switch}
           onChange={handleSwitchChange}
           error={errors.switch}
         />
@@ -190,7 +150,7 @@ const Form: React.FC = () => {
         <InlineCheckList
           id="inline-check"
           labelText="Inline check list:"
-          values={state.inlineCheck}
+          values={viewModel.inlineCheck}
           onChange={handleInlineCheckChange}
           error={errors.inlineCheck}
           options={[
@@ -204,7 +164,7 @@ const Form: React.FC = () => {
         <InlineRadioList
           id="inline-radio"
           labelText="Inline radio list:"
-          value={state.inlineRadio}
+          value={viewModel.inlineRadio}
           onChange={handleInlineRadioChange}
           error={errors.inlineRadio}
           options={[
