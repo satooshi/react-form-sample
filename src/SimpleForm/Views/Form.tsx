@@ -4,7 +4,6 @@ import FormViewModel, {
   InlineCheckOptions,
   SelectOption,
   Props,
-  Errors,
 } from '../ViewModels/FormViewModel';
 import InlineCheckList, {
   ValueState,
@@ -30,56 +29,57 @@ const initState: Props = {
 const Form: React.FC = () => {
   const [state, setState] = useState(initState);
   const viewModel = new FormViewModel(state);
-  const [errors, setErrors] = useState({} as Errors);
+  console.log(viewModel);
 
   function handleTextChange1(value: string) {
     viewModel.text1 = value;
-    setState(viewModel.serialize());
+    setState(viewModel.serialized);
   }
 
   function handleTextChange2(value: string) {
     viewModel.text2 = value;
-    setState(viewModel);
+    setState(viewModel.serialized);
   }
 
   function handleTextAreaChange(value: string) {
     viewModel.textArea = value;
-    setState(viewModel);
+    setState(viewModel.serialized);
   }
 
   function handleRadioListChange(value: string) {
     viewModel.radioList = value;
-    setState(viewModel);
+    setState(viewModel.serialized);
   }
 
   function handleSelectChange(value: string) {
     viewModel.select = value as SelectOption;
-    setState(viewModel);
+    setState(viewModel.serialized);
   }
 
   function handleSwitchChange(value: boolean) {
     viewModel.switch = value;
-    setState(viewModel);
+    setState(viewModel.serialized);
   }
 
   function handleInlineCheckChange(value: ValueState) {
     viewModel.replaceInlineCheck(value as InlineCheckOptions);
-    setState(viewModel);
+    setState(viewModel.serialized);
   }
 
   function handleInlineRadioChange(value: string) {
     viewModel.inlineRadio = value as InlineRadioOption;
-    setState(viewModel);
+    setState(viewModel.serialized);
   }
 
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const formErrors = viewModel.validate();
-    setErrors({ ...formErrors });
 
     if (Object.keys(formErrors).length === 0) {
       setState(new FormViewModel(initState));
+    } else {
+      setState(viewModel.serialized);
     }
   }
 
@@ -91,7 +91,7 @@ const Form: React.FC = () => {
           labelText="Text1"
           value={viewModel.text1}
           onChange={handleTextChange1}
-          error={errors.text1}
+          error={viewModel.errors.text1}
         />
       </div>
 
@@ -101,7 +101,7 @@ const Form: React.FC = () => {
           labelText="Text2"
           value={viewModel.text2}
           onChange={handleTextChange2}
-          error={errors.text2}
+          error={viewModel.errors.text2}
         />
       </div>
 
@@ -111,7 +111,7 @@ const Form: React.FC = () => {
           labelText="Text Area"
           value={viewModel.textArea}
           onChange={handleTextAreaChange}
-          error={errors.textArea}
+          error={viewModel.errors.textArea}
         />
       </div>
 
@@ -121,7 +121,7 @@ const Form: React.FC = () => {
           labelText="Select"
           value={viewModel.select}
           onChange={handleSelectChange}
-          error={errors.select}
+          error={viewModel.errors.select}
           options={['option1', 'option2', 'option3']}
         />
       </div>
@@ -132,7 +132,7 @@ const Form: React.FC = () => {
           labelText="Radio List:"
           value={viewModel.radioList}
           onChange={handleRadioListChange}
-          error={errors.radioList}
+          error={viewModel.errors.radioList}
           options={['radio1', 'radio2', 'radio3']}
         />
       </div>
@@ -144,7 +144,7 @@ const Form: React.FC = () => {
           value="nyan"
           checked={viewModel.switch}
           onChange={handleSwitchChange}
-          error={errors.switch}
+          error={viewModel.errors.switch}
         />
       </div>
 
@@ -154,7 +154,7 @@ const Form: React.FC = () => {
           labelText="Inline check list:"
           values={viewModel.inlineCheck}
           onChange={handleInlineCheckChange}
-          error={errors.inlineCheck}
+          error={viewModel.errors.inlineCheck}
           options={[
             { label: 'check1', value: '1' },
             { label: 'check2', value: '2' },
@@ -168,7 +168,7 @@ const Form: React.FC = () => {
           labelText="Inline radio list:"
           value={viewModel.inlineRadio}
           onChange={handleInlineRadioChange}
-          error={errors.inlineRadio}
+          error={viewModel.errors.inlineRadio}
           options={[
             { label: 'check1', value: '1' },
             { label: 'check2', value: '2' },

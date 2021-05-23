@@ -46,7 +46,7 @@ const InlineCheckList: React.FC<Props> = ({
             }
             type="checkbox"
             id={`${id}-${index}`}
-            checked={values[option.value]}
+            checked={values[option.value] === true}
             value={option.value}
             onChange={handleChange}
           />

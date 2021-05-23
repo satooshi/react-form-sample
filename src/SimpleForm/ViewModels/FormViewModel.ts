@@ -17,6 +17,7 @@ type InlineCheckOption = '1' | '2';
 export type InlineCheckOptions = { [key in InlineCheckOption]: boolean };
 
 export type Props = {
+  errors?: Errors;
   text1: string;
   text2: string;
   textArea: string;
@@ -52,6 +53,7 @@ export default class FormViewModel {
   private _inlineCheck: InlineCheckOptions;
 
   constructor(props: Props) {
+    this._errors = props.errors || {};
     this._text1 = props.text1;
     this._text2 = props.text2;
     this._textArea = props.textArea;
@@ -59,13 +61,14 @@ export default class FormViewModel {
     this._select = props.select;
     this._switch = props.switch;
     this._inlineRadio = props.inlineRadio;
-    this._inlineCheck = props.inlineCheck;
+    this._inlineCheck = { ...{1: false, 2: false}, ...props.inlineCheck};
   }
 
   // Interfaces used by UI components
 
-  serialize() {
+  get serialized() {
     return {
+      errors: this.errors,
       text1: this._text1,
       text2: this._text2,
       textArea: this._textArea,
@@ -79,61 +82,62 @@ export default class FormViewModel {
 
   get text1() { return this._text1 }
 
-  set text1(value: string) { this._text1 = value }
+  set text1(value: string) {
+    this._text1 = value
+    this.validateText1();
+  }
 
   get text2() { return this._text2 }
 
-  set text2(value: string) { this._text2 = value }
+  set text2(value: string) {
+    this._text2 = value
+    this.validateText2();
+  }
 
   get textArea() { return this._textArea }
 
-  set textArea(value: string) { this._textArea = value }
+  set textArea(value: string) {
+    this._textArea = value
+    this.validateTextArea();
+  }
 
   get radioList() { return this._radioList }
 
-  set radioList(value: string) { this._radioList = value }
+  set radioList(value: string) {
+    this._radioList = value
+    this.validateRadioList();
+  }
 
   get select() { return this._select }
 
-  set select(value: SelectOption) { this._select = value }
+  set select(value: SelectOption) {
+    this._select = value
+    this.validateSelect();
+  }
 
   get switch() { return this._switch }
 
-  set switch(value: boolean) { this._switch = value }
+  set switch(value: boolean) {
+    this._switch = value
+    this.validateSwitch();
+  }
 
   get inlineRadio() { return this._inlineRadio }
 
-  set inlineRadio(value: InlineRadioOption) { this._inlineRadio = value }
+  set inlineRadio(value: InlineRadioOption) {
+    this._inlineRadio = value
+    this.validateInlineCheck();
+  }
 
   get inlineCheck() { return this._inlineCheck }
 
-  set inlineCheck(value: InlineCheckOptions) { this._inlineCheck = value }
+  set inlineCheck(value: InlineCheckOptions) {
+    this._inlineCheck = value
+    this.validateInlineRadio();
+  }
 
   replaceInlineCheck(value: InlineCheckOptions) {
     this._inlineCheck = { ...this._inlineCheck, ...value }
-  }
-
-  // Interfaces used for persistent layer (send data to the backend API)
-  // TODO: Who should use theses interfaces?
-
-  /** Flush changes to the backend API */
-  async flush() {
-    console.log('Flush changes to the Backend API', {data: this.requestData}); // eslint-disable-line
-
-    return Promise.resolve(() => ({message: 'Saved!'}));
-  }
-
-  get requestData() {
-    return {
-      text1: this._text1,
-      text2: this._text2,
-      textArea: this._textArea,
-      radioList: this._radioList,
-      select: this._select,
-      switch: this._switch,
-      inlineRadio: this._inlineRadio,
-      inlineCheck: this._inlineCheck,
-    };
   }
 
   // ViewModel Validation
@@ -143,6 +147,8 @@ export default class FormViewModel {
   }
 
   validate() {
+    this._errors = {};
+
     this.validateText1();
     this.validateText2();
     this.validateTextArea();
@@ -158,48 +164,72 @@ export default class FormViewModel {
   private validateText1() {
     if (this._text1.length === 0) {
       this._errors.text1 = 'Required';
+      return;
     }
+
+    delete this._errors.text1;
   }
 
   private validateText2() {
     if (this._text2.length === 0) {
       this._errors.text2 = 'Required';
+      return;
     }
+
+    delete this._errors.text2;
   }
 
   private validateTextArea() {
     if (this._textArea.length === 0) {
       this._errors.textArea = 'Required';
+      return;
     }
+
+    delete this._errors.textArea;
   }
 
   private validateRadioList() {
     if (this._radioList.length === 0) {
       this._errors.radioList = 'Required';
+      return;
     }
+
+    delete this._errors.radioList;
   }
 
   private validateSelect() {
     if (this._select.length === 0) {
       this._errors.select = 'Required';
+      return;
     }
+
+    delete this._errors.select;
   }
 
   private validateSwitch() {
     if (this._switch === false) {
       this._errors.switch = 'Required';
+      return;
     }
+
+    delete this._errors.switch;
   }
 
   private validateInlineCheck() {
     if (!Object.values(this._inlineCheck).find((v) => v === true)) {
       this._errors.inlineCheck = 'Required';
+      return;
     }
+
+    delete this._errors.inlineCheck;
   }
 
   private validateInlineRadio() {
     if (this._inlineRadio === '') {
       this._errors.inlineRadio = 'Required';
+      return;
     }
+
+    delete this._errors.inlineRadio;
   }
 }
