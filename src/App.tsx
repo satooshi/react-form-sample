@@ -18,7 +18,7 @@ function App() {
         <div className="row justify-content-md-center">
           <div className="col-md-6">
             <h2>Simple form</h2>
-            <SimpleForm />
+            <SimpleForm useCase={formUseCase} />
           </div>
         </div>
       </div>

@@ -14,6 +14,7 @@ import Select from '../../Components/Bootstrap/Select';
 import Switch from '../../Components/Bootstrap/Switch';
 import TextArea from '../../Components/Bootstrap/TextArea';
 import TextInput from '../../Components/Bootstrap/TextInput';
+import FormUseCase from '../UseCases/FormUseCase';
 
 const initState: Props = {
   text1: '',
@@ -26,7 +27,11 @@ const initState: Props = {
   inlineRadio: '',
 };
 
-const Form: React.FC = () => {
+interface FormProps {
+  useCase: FormUseCase<FormViewModel>;
+}
+
+const Form: React.FC<FormProps> = ({ useCase }) => {
   const [state, setState] = useState(initState);
   const viewModel = new FormViewModel(state);
   console.log(viewModel);
@@ -71,12 +76,14 @@ const Form: React.FC = () => {
     setState(viewModel.serialized);
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const formErrors = viewModel.validate();
 
     if (Object.keys(formErrors).length === 0) {
+      await useCase.create(viewModel);
+
       setState(new FormViewModel(initState));
     } else {
       setState(viewModel.serialized);
