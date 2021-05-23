@@ -40,6 +40,7 @@ const initState: State = {
   inlineRadio: '',
 };
 
+// TODO: Run validaiton on change each field after submission
 function validate(values: State): Errors {
   const errors: Errors = {};
 
