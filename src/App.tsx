@@ -1,7 +1,7 @@
 import React from 'react';
 import logo from './logo.svg'; // eslint-disable-line @typescript-eslint/no-unused-vars
 // import './App.css';
-import SimpleForm from './SimpleForm/Form';
+import SimpleForm from './SimpleForm/Views/Form';
 
 function App() {
   return (

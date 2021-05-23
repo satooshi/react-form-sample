@@ -118,7 +118,7 @@ export default class FormViewModel {
 
   /** Flush changes to the backend API */
   async flush() {
-    console.log('Flush changes to the Backend API', {data: this.requestData});
+    console.log('Flush changes to the Backend API', {data: this.requestData}); // eslint-disable-line
 
     return Promise.resolve(() => ({message: 'Saved!'}));
   }

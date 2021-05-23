@@ -5,14 +5,16 @@ import FormViewModel, {
   SelectOption,
   Props,
   Errors,
-} from './FormViewModel';
-import InlineCheckList, { ValueState } from './InlineCheckList';
-import InlineRadioList from './InlineRadioList';
-import RadioList from './RadioList';
-import Select from './Select';
-import Switch from './Switch';
-import TextArea from './TextArea';
-import TextInput from './TextInput';
+} from '../ViewModels/FormViewModel';
+import InlineCheckList, {
+  ValueState,
+} from '../../Components/Bootstrap/InlineCheckList';
+import InlineRadioList from '../../Components/Bootstrap/InlineRadioList';
+import RadioList from '../../Components/Bootstrap/RadioList';
+import Select from '../../Components/Bootstrap/Select';
+import Switch from '../../Components/Bootstrap/Switch';
+import TextArea from '../../Components/Bootstrap/TextArea';
+import TextInput from '../../Components/Bootstrap/TextInput';
 
 const initState: Props = {
   text1: '',
@@ -88,7 +90,7 @@ const Form: React.FC = () => {
           id="text1"
           labelText="Text1"
           value={viewModel.text1}
-          onBlur={handleTextChange1}
+          onChange={handleTextChange1}
           error={errors.text1}
         />
       </div>
