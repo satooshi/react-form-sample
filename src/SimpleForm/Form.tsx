@@ -128,7 +128,7 @@ const Form: React.FC = () => {
           id="text1"
           labelText="Text1"
           value={state.text1}
-          onChange={handleTextChange1}
+          onBlur={handleTextChange1}
           error={errors.text1}
         />
       </div>
