@@ -1,5 +1,6 @@
 import { Repository } from "./Interfaces";
 
+// TODO: This kind of UseCase might be unnecessary.
 export default class FormUseCase<T> {
   private _repository;
 
