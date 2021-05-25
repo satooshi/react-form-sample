@@ -1,4 +1,10 @@
-import React, { useState } from 'react';
+import React, {
+  useMemo,
+  useState,
+  useRef,
+  useEffect,
+  useCallback,
+} from 'react';
 import FormViewModel, {
   InlineRadioOption,
   InlineCheckOptions,
@@ -34,154 +40,211 @@ interface FormProps {
 const Form: React.FC<FormProps> = ({ useCase }) => {
   const [state, setState] = useState(initState);
   const viewModel = new FormViewModel(state);
-  console.log(viewModel);
 
-  function handleTextChange1(value: string) {
-    viewModel.text1 = value;
-    setState(viewModel.serialized);
-  }
+  const refViewModel = useRef(viewModel);
+  useEffect(() => {
+    refViewModel.current = viewModel;
+  });
+  console.log('render Form', { state, viewModel });
 
-  function handleTextChange2(value: string) {
-    viewModel.text2 = value;
-    setState(viewModel.serialized);
-  }
+  const handleTextChange1 = useCallback((value: string) => {
+    const props = refViewModel.current;
+    props.text1 = value;
+    setState(props.serialized);
+  }, []);
 
-  function handleTextAreaChange(value: string) {
-    viewModel.textArea = value;
-    setState(viewModel.serialized);
-  }
+  const handleTextChange2 = useCallback((value: string) => {
+    const props = refViewModel.current;
+    props.text2 = value;
+    setState(props.serialized);
+  }, []);
 
-  function handleRadioListChange(value: string) {
-    viewModel.radioList = value;
-    setState(viewModel.serialized);
-  }
+  const handleTextAreaChange = useCallback((value: string) => {
+    const props = refViewModel.current;
+    props.textArea = value;
+    setState(props.serialized);
+  }, []);
 
-  function handleSelectChange(value: string) {
-    viewModel.select = value as SelectOption;
-    setState(viewModel.serialized);
-  }
+  const handleRadioListChange = useCallback((value: string) => {
+    const props = refViewModel.current;
+    props.radioList = value;
+    setState(props.serialized);
+  }, []);
 
-  function handleSwitchChange(value: boolean) {
-    viewModel.switch = value;
-    setState(viewModel.serialized);
-  }
+  const handleSelectChange = useCallback((value: string) => {
+    const props = refViewModel.current;
+    props.select = value as SelectOption;
+    setState(props.serialized);
+  }, []);
 
-  function handleInlineCheckChange(value: ValueState) {
-    viewModel.replaceInlineCheck(value as InlineCheckOptions);
-    setState(viewModel.serialized);
-  }
+  const handleSwitchChange = useCallback((value: boolean) => {
+    const props = refViewModel.current;
+    props.switch = value;
+    setState(props.serialized);
+  }, []);
 
-  function handleInlineRadioChange(value: string) {
-    viewModel.inlineRadio = value as InlineRadioOption;
-    setState(viewModel.serialized);
-  }
+  const handleInlineCheckChange = useCallback((value: ValueState) => {
+    const props = refViewModel.current;
+    props.replaceInlineCheck(value as InlineCheckOptions);
+    setState(props.serialized);
+  }, []);
+
+  const handleInlineRadioChange = useCallback((value: string) => {
+    const props = refViewModel.current;
+    props.inlineRadio = value as InlineRadioOption;
+    setState(props.serialized);
+  }, []);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
+    const props = refViewModel.current;
 
-    const formErrors = viewModel.validate();
+    const formErrors = props.validate();
 
     if (Object.keys(formErrors).length === 0) {
-      await useCase.create(viewModel);
+      await useCase.create(props);
 
       setState(new FormViewModel(initState));
     } else {
-      setState(viewModel.serialized);
+      setState(props.serialized);
     }
   }
 
+  // memoize to avoid too-many re-render
+
+  const text1View = useMemo(
+    () => (
+      <TextInput
+        id="text1"
+        labelText="Text1"
+        value={viewModel.text1}
+        onChange={handleTextChange1}
+        error={viewModel.errors.text1}
+      />
+    ),
+    [viewModel.text1, viewModel.errors.text1]
+  );
+
+  const text2View = useMemo(
+    () => (
+      <TextInput
+        id="text2"
+        labelText="Text2"
+        value={viewModel.text2}
+        onChange={handleTextChange2}
+        error={viewModel.errors.text2}
+      />
+    ),
+    [viewModel.text2, viewModel.errors.text2]
+  );
+
+  const textAreaView = useMemo(
+    () => (
+      <TextArea
+        id="text-area"
+        labelText="Text Area"
+        value={viewModel.textArea}
+        onChange={handleTextAreaChange}
+        error={viewModel.errors.textArea}
+      />
+    ),
+    [viewModel.textArea, viewModel.errors.textArea, handleTextAreaChange]
+  );
+
+  const selectView = useMemo(
+    () => (
+      <Select
+        id="select"
+        labelText="Select"
+        value={viewModel.select}
+        onChange={handleSelectChange}
+        error={viewModel.errors.select}
+        options={['option1', 'option2', 'option3']}
+      />
+    ),
+    [viewModel.select, viewModel.errors.select, handleSelectChange]
+  );
+
+  const radioListView = useMemo(
+    () => (
+      <RadioList
+        id="radio-list"
+        labelText="Radio List:"
+        value={viewModel.radioList}
+        onChange={handleRadioListChange}
+        error={viewModel.errors.radioList}
+        options={['radio1', 'radio2', 'radio3']}
+      />
+    ),
+    [viewModel.radioList, viewModel.errors.radioList, handleRadioListChange]
+  );
+
+  const switchView = useMemo(
+    () => (
+      <Switch
+        id="switch"
+        labelText="Switch here"
+        value="nyan"
+        checked={viewModel.switch}
+        onChange={handleSwitchChange}
+        error={viewModel.errors.switch}
+      />
+    ),
+    [viewModel.switch, viewModel.errors.switch, handleSwitchChange]
+  );
+
+  const inlineCheckListView = useMemo(
+    () => (
+      <InlineCheckList
+        id="inline-check"
+        labelText="Inline check list:"
+        values={viewModel.inlineCheck}
+        onChange={handleInlineCheckChange}
+        error={viewModel.errors.inlineCheck}
+        options={[
+          { label: 'check1', value: '1' },
+          { label: 'check2', value: '2' },
+        ]}
+      />
+    ),
+    [
+      viewModel.inlineCheck,
+      viewModel.errors.inlineCheck,
+      handleInlineCheckChange,
+    ]
+  );
+
+  const inlineRadioListView = useMemo(
+    () => (
+      <InlineRadioList
+        id="inline-radio"
+        labelText="Inline radio list:"
+        value={viewModel.inlineRadio}
+        onChange={handleInlineRadioChange}
+        error={viewModel.errors.inlineRadio}
+        options={[
+          { label: 'check1', value: '1' },
+          { label: 'check2', value: '2' },
+        ]}
+      />
+    ),
+    [
+      viewModel.inlineRadio,
+      viewModel.errors.inlineRadio,
+      handleInlineRadioChange,
+    ]
+  );
+
   return (
     <form onSubmit={handleSubmit} noValidate>
-      <div className="mb-3">
-        <TextInput
-          id="text1"
-          labelText="Text1"
-          value={viewModel.text1}
-          onChange={handleTextChange1}
-          error={viewModel.errors.text1}
-        />
-      </div>
-
-      <div className="mb-3">
-        <TextInput
-          id="text2"
-          labelText="Text2"
-          value={viewModel.text2}
-          onChange={handleTextChange2}
-          error={viewModel.errors.text2}
-        />
-      </div>
-
-      <div className="mb-3">
-        <TextArea
-          id="text-area"
-          labelText="Text Area"
-          value={viewModel.textArea}
-          onChange={handleTextAreaChange}
-          error={viewModel.errors.textArea}
-        />
-      </div>
-
-      <div className="mb-3">
-        <Select
-          id="select"
-          labelText="Select"
-          value={viewModel.select}
-          onChange={handleSelectChange}
-          error={viewModel.errors.select}
-          options={['option1', 'option2', 'option3']}
-        />
-      </div>
-
-      <div className="mb-3">
-        <RadioList
-          id="radio-list"
-          labelText="Radio List:"
-          value={viewModel.radioList}
-          onChange={handleRadioListChange}
-          error={viewModel.errors.radioList}
-          options={['radio1', 'radio2', 'radio3']}
-        />
-      </div>
-
-      <div className="mb-3">
-        <Switch
-          id="switch"
-          labelText="Switch here"
-          value="nyan"
-          checked={viewModel.switch}
-          onChange={handleSwitchChange}
-          error={viewModel.errors.switch}
-        />
-      </div>
-
-      <div className="mb-3">
-        <InlineCheckList
-          id="inline-check"
-          labelText="Inline check list:"
-          values={viewModel.inlineCheck}
-          onChange={handleInlineCheckChange}
-          error={viewModel.errors.inlineCheck}
-          options={[
-            { label: 'check1', value: '1' },
-            { label: 'check2', value: '2' },
-          ]}
-        />
-      </div>
-
-      <div className="mb-3">
-        <InlineRadioList
-          id="inline-radio"
-          labelText="Inline radio list:"
-          value={viewModel.inlineRadio}
-          onChange={handleInlineRadioChange}
-          error={viewModel.errors.inlineRadio}
-          options={[
-            { label: 'check1', value: '1' },
-            { label: 'check2', value: '2' },
-          ]}
-        />
-      </div>
+      <div className="mb-3">{text1View}</div>
+      <div className="mb-3">{text2View}</div>
+      <div className="mb-3">{textAreaView}</div>
+      <div className="mb-3">{selectView}</div>
+      <div className="mb-3">{radioListView}</div>
+      <div className="mb-3">{switchView}</div>
+      <div className="mb-3">{inlineCheckListView}</div>
+      <div className="mb-3">{inlineRadioListView}</div>
 
       <button type="submit" className="btn btn-primary">
         submit
