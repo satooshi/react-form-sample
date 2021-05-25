@@ -76,7 +76,7 @@ export default class FormViewModel {
       select: this._select,
       switch: this._switch,
       inlineRadio: this._inlineRadio,
-      inlineCheck: this._inlineCheck,
+      inlineCheck: {...this._inlineCheck},
     }
   }
 
@@ -126,18 +126,19 @@ export default class FormViewModel {
 
   set inlineRadio(value: InlineRadioOption) {
     this._inlineRadio = value
-    this.validateInlineCheck();
+    this.validateInlineRadio();
   }
 
   get inlineCheck() { return this._inlineCheck }
 
   set inlineCheck(value: InlineCheckOptions) {
-    this._inlineCheck = value
-    this.validateInlineRadio();
+    this._inlineCheck = {...value}
+    this.validateInlineCheck();
   }
 
   replaceInlineCheck(value: InlineCheckOptions) {
     this._inlineCheck = { ...this._inlineCheck, ...value }
+    this.validateInlineCheck();
   }
 
   // ViewModel Validation
