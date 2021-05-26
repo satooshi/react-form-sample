@@ -27,6 +27,7 @@ const InlineCheckList: React.FC<Props> = ({
       [event.target.value]: event.target.checked,
     });
   }
+  console.log('render InlineCheckList');
 
   return (
     <>

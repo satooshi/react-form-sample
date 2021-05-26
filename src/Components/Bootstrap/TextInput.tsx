@@ -19,6 +19,7 @@ const TextInput: React.FC<Props> = ({
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     onChange(event.target.value);
   }
+  console.log('render TextInput', { id });
 
   return (
     <>

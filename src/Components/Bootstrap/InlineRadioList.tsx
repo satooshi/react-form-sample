@@ -25,6 +25,7 @@ const InlineRadioList: React.FC<Props> = ({
     onChange(event.target.value);
   }
 
+  console.log('render InlineRadioList');
   return (
     <>
       <span className="form-check-inline">{labelText}</span>

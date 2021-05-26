@@ -96,6 +96,7 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
   }, []);
 
   async function handleSubmit(e: React.FormEvent) {
+    console.log('Submitting the form');
     e.preventDefault();
     const props = refViewModel.current;
 

@@ -21,6 +21,7 @@ const Switch: React.FC<Props> = ({
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     onChange(event.target.checked);
   }
+  console.log('render Switch', { id });
 
   return (
     <div className="form-check form-switch">

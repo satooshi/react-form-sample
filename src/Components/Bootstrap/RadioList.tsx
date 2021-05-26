@@ -21,6 +21,7 @@ const RadioList: React.FC<Props> = ({
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     onChange(event.target.value);
   }
+  console.log('render RadioList', { id });
 
   return (
     <>

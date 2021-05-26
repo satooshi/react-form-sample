@@ -21,6 +21,7 @@ const Select: React.FC<Props> = ({
   function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
     onChange(event.target.value);
   }
+  console.log('render Select', { id });
 
   return (
     <>

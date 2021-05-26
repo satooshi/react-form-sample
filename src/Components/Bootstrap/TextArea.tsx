@@ -19,6 +19,7 @@ const TextArea: React.FC<Props> = ({
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     onChange(event.target.value);
   }
+  console.log('render TextArea', { id });
 
   return (
     <>
