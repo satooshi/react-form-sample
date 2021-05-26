@@ -236,7 +236,7 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
   );
 
   return (
-    <form onSubmit={handleSubmit} noValidate>
+    <form noValidate>
       <div className="mb-3">{text1View}</div>
       <div className="mb-3">{text2View}</div>
       <div className="mb-3">{textAreaView}</div>
@@ -246,7 +246,7 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
       <div className="mb-3">{inlineCheckListView}</div>
       <div className="mb-3">{inlineRadioListView}</div>
 
-      <button type="submit" className="btn btn-primary">
+      <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
         submit
       </button>
     </form>
