@@ -40,6 +40,7 @@ interface FormProps {
 const Form: React.FC<FormProps> = ({ useCase }) => {
   const [state, setState] = useState(initState);
   const viewModel = new FormViewModel(state);
+  const [submitting, setSubmitting] = useState(false);
 
   const refViewModel = useRef(viewModel);
   useEffect(() => {
@@ -97,6 +98,7 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
 
   async function handleSubmit(e: React.FormEvent) {
     console.log('Submitting the form');
+    setSubmitting(true);
     e.preventDefault();
     const props = refViewModel.current;
 
@@ -106,8 +108,10 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
       await useCase.create(props);
 
       setState(new FormViewModel(initState));
+      setSubmitting(false);
     } else {
       setState(props.serialized);
+      setSubmitting(false);
     }
   }
 
@@ -247,7 +251,12 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
       <div className="mb-3">{inlineCheckListView}</div>
       <div className="mb-3">{inlineRadioListView}</div>
 
-      <button type="submit" className="btn btn-primary" onClick={handleSubmit}>
+      <button
+        type="submit"
+        className="btn btn-primary"
+        onClick={handleSubmit}
+        disabled={submitting}
+      >
         submit
       </button>
     </form>
