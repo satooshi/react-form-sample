@@ -30,11 +30,14 @@ const initState: Props = {
 
 interface FormProps {
   useCase: FormUseCase<FormViewModel>;
+  onSubmitSuccess?: (
+    setViewModel: (nextViewModel: FormViewModel) => void
+  ) => void; // TODO: Implement this
 }
 
 const Form: React.FC<FormProps> = ({ useCase }) => {
   const [submitting, setSubmitting] = useState(false);
-  const [viewModel, setViewModel] = useViewModel(new FormViewModel(initState));
+  const [viewModel, setViewModel] = useViewModel(new FormViewModel(initState)); // TODO: Inject view model by Component props
 
   console.log('render Form', { viewModel });
 
@@ -88,10 +91,11 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
     if (Object.keys(formErrors).length === 0) {
       await useCase.create(viewModel);
 
-      setViewModel(new FormViewModel(initState));
+      // onSubmitSuccess(setViewModel);
+      setViewModel(new FormViewModel(initState)); // TODO: This depends on use cases whether to clear form or change nothing
       setSubmitting(false);
     } else {
-      setViewModel(viewModel);
+      setViewModel(viewModel); // notify errors
       setSubmitting(false);
     }
   }
