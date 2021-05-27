@@ -61,4 +61,11 @@ const InlineCheckList: React.FC<Props> = ({
   );
 };
 
-export default InlineCheckList;
+export default React.memo(
+  InlineCheckList,
+  (prevProps, nextProps) =>
+    prevProps.values === nextProps.values &&
+    prevProps.error === nextProps.error &&
+    prevProps.onChange === nextProps.onChange
+  // prevProps.options === nextProps.options
+);

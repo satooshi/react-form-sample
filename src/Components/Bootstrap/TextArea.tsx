@@ -37,4 +37,4 @@ const TextArea: React.FC<Props> = ({
   );
 };
 
-export default TextArea;
+export default React.memo(TextArea);

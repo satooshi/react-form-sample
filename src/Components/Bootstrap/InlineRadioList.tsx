@@ -59,4 +59,11 @@ const InlineRadioList: React.FC<Props> = ({
   );
 };
 
-export default InlineRadioList;
+export default React.memo(
+  InlineRadioList,
+  (prevProps, nextProps) =>
+    prevProps.value === nextProps.value &&
+    prevProps.error === nextProps.error &&
+    prevProps.onChange === nextProps.onChange
+  // prevProps.options === nextProps.options
+);

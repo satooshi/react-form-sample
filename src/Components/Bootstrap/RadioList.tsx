@@ -56,4 +56,10 @@ const RadioList: React.FC<Props> = ({
   );
 };
 
-export default RadioList;
+export default React.memo(
+  RadioList,
+  (prevProps, nextProps) =>
+    prevProps.value === nextProps.value &&
+    prevProps.error === nextProps.error &&
+    prevProps.onChange === nextProps.onChange
+);

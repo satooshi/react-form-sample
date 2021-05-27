@@ -46,4 +46,11 @@ const Select: React.FC<Props> = ({
   );
 };
 
-export default Select;
+export default React.memo(
+  Select,
+  (prevProps, nextProps) =>
+    prevProps.value === nextProps.value &&
+    prevProps.error === nextProps.error &&
+    prevProps.onChange === nextProps.onChange
+  // prevProps.options === nextProps.options
+);

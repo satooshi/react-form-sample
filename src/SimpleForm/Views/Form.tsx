@@ -1,10 +1,4 @@
-import React, {
-  useMemo,
-  useState,
-  useRef,
-  useEffect,
-  useCallback,
-} from 'react';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 import FormViewModel, {
   InlineRadioOption,
   InlineCheckOptions,
@@ -117,21 +111,18 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
 
   // memoize to avoid too-many re-render
 
-  const text1View = useMemo(
-    () => (
+  return (
+    <form noValidate>
+      <div className="mb-3">
       <TextInput
         id="text1"
         labelText="Text1"
-        value={viewModel.text1}
+          value={viewModel2.text1}
         onChange={handleTextChange1}
-        error={viewModel.errors.text1}
+          error={viewModel2.errors.text1}
       />
-    ),
-    [viewModel.text1, viewModel.errors.text1]
-  );
-
-  const text2View = useMemo(
-    () => (
+      </div>
+      <div className="mb-3">
       <TextInput
         id="text2"
         labelText="Text2"
@@ -139,12 +130,8 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
         onChange={handleTextChange2}
         error={viewModel.errors.text2}
       />
-    ),
-    [viewModel.text2, viewModel.errors.text2]
-  );
-
-  const textAreaView = useMemo(
-    () => (
+      </div>
+      <div className="mb-3">
       <TextArea
         id="text-area"
         labelText="Text Area"
@@ -152,12 +139,8 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
         onChange={handleTextAreaChange}
         error={viewModel.errors.textArea}
       />
-    ),
-    [viewModel.textArea, viewModel.errors.textArea, handleTextAreaChange]
-  );
-
-  const selectView = useMemo(
-    () => (
+      </div>
+      <div className="mb-3">
       <Select
         id="select"
         labelText="Select"
@@ -166,12 +149,8 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
         error={viewModel.errors.select}
         options={['option1', 'option2', 'option3']}
       />
-    ),
-    [viewModel.select, viewModel.errors.select, handleSelectChange]
-  );
-
-  const radioListView = useMemo(
-    () => (
+      </div>
+      <div className="mb-3">
       <RadioList
         id="radio-list"
         labelText="Radio List:"
@@ -180,12 +159,8 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
         error={viewModel.errors.radioList}
         options={['radio1', 'radio2', 'radio3']}
       />
-    ),
-    [viewModel.radioList, viewModel.errors.radioList, handleRadioListChange]
-  );
-
-  const switchView = useMemo(
-    () => (
+      </div>
+      <div className="mb-3">
       <Switch
         id="switch"
         labelText="Switch here"
@@ -194,12 +169,8 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
         onChange={handleSwitchChange}
         error={viewModel.errors.switch}
       />
-    ),
-    [viewModel.switch, viewModel.errors.switch, handleSwitchChange]
-  );
-
-  const inlineCheckListView = useMemo(
-    () => (
+      </div>
+      <div className="mb-3">
       <InlineCheckList
         id="inline-check"
         labelText="Inline check list:"
@@ -211,16 +182,8 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
           { label: 'check2', value: '2' },
         ]}
       />
-    ),
-    [
-      viewModel.inlineCheck,
-      viewModel.errors.inlineCheck,
-      handleInlineCheckChange,
-    ]
-  );
-
-  const inlineRadioListView = useMemo(
-    () => (
+      </div>
+      <div className="mb-3">
       <InlineRadioList
         id="inline-radio"
         labelText="Inline radio list:"
@@ -232,24 +195,7 @@ const Form: React.FC<FormProps> = ({ useCase }) => {
           { label: 'check2', value: '2' },
         ]}
       />
-    ),
-    [
-      viewModel.inlineRadio,
-      viewModel.errors.inlineRadio,
-      handleInlineRadioChange,
-    ]
-  );
-
-  return (
-    <form noValidate>
-      <div className="mb-3">{text1View}</div>
-      <div className="mb-3">{text2View}</div>
-      <div className="mb-3">{textAreaView}</div>
-      <div className="mb-3">{selectView}</div>
-      <div className="mb-3">{radioListView}</div>
-      <div className="mb-3">{switchView}</div>
-      <div className="mb-3">{inlineCheckListView}</div>
-      <div className="mb-3">{inlineRadioListView}</div>
+      </div>
 
       <button
         type="submit"
