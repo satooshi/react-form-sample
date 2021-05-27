@@ -1,3 +1,5 @@
+import ViewModel from "./ViewModel";
+
 export type Errors = {
   text1?: string;
   text2?: string;
@@ -33,7 +35,7 @@ export type Props = {
 //   This is done by implementing constructor.
 // 2. ViewModel -> Repository: to transform UI layer to persistent layer
 //   This is done by implementing `get requestData()`.
-export default class FormViewModel {
+export default class FormViewModel implements ViewModel {
   private _errors: Errors = {};
 
   private _text1: string;
