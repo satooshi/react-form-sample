@@ -51,6 +51,6 @@ export default React.memo(
   (prevProps, nextProps) =>
     prevProps.value === nextProps.value &&
     prevProps.error === nextProps.error &&
-    prevProps.onChange === nextProps.onChange
-  // prevProps.options === nextProps.options
+    prevProps.onChange === nextProps.onChange &&
+    JSON.stringify(prevProps.options) === JSON.stringify(nextProps.options)
 );
