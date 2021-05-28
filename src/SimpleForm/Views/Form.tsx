@@ -24,20 +24,21 @@ const initState: Props = {
   radioList: '',
   select: '',
   switch: false,
-  inlineCheck: {} as InlineCheckOptions,
+  inlineCheck: { 1: false, 2: false },
   inlineRadio: '',
 };
 
 interface FormProps {
   useCase: FormUseCase<FormViewModel>;
+  initialViewModel: FormViewModel;
   onSubmitSuccess?: (
     setViewModel: (nextViewModel: FormViewModel) => void
   ) => void; // TODO: Implement this
 }
 
-const Form: React.FC<FormProps> = ({ useCase }) => {
+const Form: React.FC<FormProps> = ({ useCase, initialViewModel }) => {
   const [submitting, setSubmitting] = useState(false);
-  const [viewModel, setViewModel] = useViewModel(new FormViewModel(initState)); // TODO: Inject view model by Component props
+  const [viewModel, setViewModel] = useViewModel(initialViewModel);
 
   console.log('render Form', { viewModel });
 

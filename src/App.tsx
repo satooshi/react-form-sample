@@ -5,11 +5,23 @@ import SimpleForm from './SimpleForm/Views/Form';
 import FooRepository from './SimpleForm/Repositories/FooRepository';
 import FooDriver from './SimpleForm/Drivers/FooDriver';
 import FormUseCase from './SimpleForm/UseCases/FormUseCase';
+import FormViewModel from './SimpleForm/ViewModels/FormViewModel';
 
 const fooDriver = new FooDriver();
 const fooRepository = new FooRepository(fooDriver);
 const formUseCase = new FormUseCase(fooRepository);
 console.log('Wired', formUseCase);
+
+const viewModel = new FormViewModel({
+  text1: '',
+  text2: '',
+  textArea: '',
+  radioList: '',
+  select: '',
+  switch: false,
+  inlineCheck: { 1: false, 2: false },
+  inlineRadio: '',
+});
 
 function App() {
   return (
@@ -18,7 +30,7 @@ function App() {
         <div className="row justify-content-md-center">
           <div className="col-md-6">
             <h2>Simple form</h2>
-            <SimpleForm useCase={formUseCase} />
+            <SimpleForm useCase={formUseCase} initialViewModel={viewModel} />
           </div>
         </div>
       </div>
