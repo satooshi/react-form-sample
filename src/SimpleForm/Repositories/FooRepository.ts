@@ -13,6 +13,7 @@ export default class FooRepository implements Repository<FormViewModel> {
     this.#driver = driver;
   }
 
+  /** Persists a ViewModel to the backend API */
   async create(viewModel: FormViewModel) {
     const requestData = {
       text1: viewModel.text1,
