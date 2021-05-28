@@ -7,10 +7,10 @@ type CreateErrors = {
 }
 
 export default class FooRepository implements Repository<FormViewModel> {
-  private _driver;
+  #driver;
 
   constructor(driver: CommandDriver) {
-    this._driver = driver;
+    this.#driver = driver;
   }
 
   async create(viewModel: FormViewModel) {
@@ -26,7 +26,7 @@ export default class FooRepository implements Repository<FormViewModel> {
     };
 
     try {
-      const response = await this._driver.create<CreateErrors, typeof requestData>(requestData);
+      const response = await this.#driver.create<CreateErrors, typeof requestData>(requestData);
 
       return response.message;
     } catch(e) {
