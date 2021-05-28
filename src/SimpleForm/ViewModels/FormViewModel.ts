@@ -30,11 +30,6 @@ export type Props = {
   inlineRadio: InlineRadioOption;
 };
 
-// A ViewModel MUST implement 2 ways data transformer.
-// 1. Repository -> ViewModel: to transform persistent layer to UI layer
-//   This is done by implementing constructor.
-// 2. ViewModel -> Repository: to transform application layer data to persistent layer data
-//   This is done by implementing `get requestData()`.
 export default class FormViewModel implements ViewModel {
   #errors: Errors = {};
 
