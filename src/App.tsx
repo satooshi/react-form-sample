@@ -5,14 +5,14 @@ import SimpleForm from './SimpleForm/Views/Form';
 import FooRepository from './SimpleForm/Repositories/FooRepository';
 import FooDriver from './SimpleForm/Drivers/FooDriver';
 import FormUseCase from './SimpleForm/UseCases/FormUseCase';
-import FormViewModel from './SimpleForm/ViewModels/FormViewModel';
+import FormViewModel, { Props } from './SimpleForm/ViewModels/FormViewModel';
 
 const fooDriver = new FooDriver();
 const fooRepository = new FooRepository(fooDriver);
 const formUseCase = new FormUseCase(fooRepository);
 console.log('Wired', formUseCase);
 
-const viewModel = new FormViewModel({
+const initState: Props = {
   text1: '',
   text2: '',
   textArea: '',
@@ -21,7 +21,12 @@ const viewModel = new FormViewModel({
   switch: false,
   inlineCheck: { 1: false, 2: false },
   inlineRadio: '',
-});
+};
+const viewModel = new FormViewModel(initState);
+
+const onSubmitSuccess = (callback: (v: FormViewModel) => void) => {
+  callback(new FormViewModel(initState));
+};
 
 function App() {
   return (
@@ -30,7 +35,11 @@ function App() {
         <div className="row justify-content-md-center">
           <div className="col-md-6">
             <h2>Simple form</h2>
-            <SimpleForm useCase={formUseCase} initialViewModel={viewModel} />
+            <SimpleForm
+              useCase={formUseCase}
+              initialViewModel={viewModel}
+              onSubmitSuccess={onSubmitSuccess}
+            />
           </div>
         </div>
       </div>

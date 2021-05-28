@@ -3,7 +3,6 @@ import FormViewModel, {
   InlineRadioOption,
   InlineCheckOptions,
   SelectOption,
-  Props,
 } from '../ViewModels/FormViewModel';
 import InlineCheckList, {
   ValueState,
@@ -17,26 +16,19 @@ import TextInput from '../../Components/Bootstrap/TextInput';
 import FormUseCase from '../UseCases/FormUseCase';
 import { useViewModel } from '../Bridges/ReactBridge';
 
-const initState: Props = {
-  text1: '',
-  text2: '',
-  textArea: '',
-  radioList: '',
-  select: '',
-  switch: false,
-  inlineCheck: { 1: false, 2: false },
-  inlineRadio: '',
-};
-
 interface FormProps {
   useCase: FormUseCase<FormViewModel>;
   initialViewModel: FormViewModel;
   onSubmitSuccess?: (
     setViewModel: (nextViewModel: FormViewModel) => void
-  ) => void; // TODO: Implement this
+  ) => void;
 }
 
-const Form: React.FC<FormProps> = ({ useCase, initialViewModel }) => {
+const Form: React.FC<FormProps> = ({
+  useCase,
+  initialViewModel,
+  onSubmitSuccess,
+}) => {
   const [submitting, setSubmitting] = useState(false);
   const [viewModel, setViewModel] = useViewModel(initialViewModel);
 
@@ -92,8 +84,10 @@ const Form: React.FC<FormProps> = ({ useCase, initialViewModel }) => {
     if (Object.keys(formErrors).length === 0) {
       await useCase.create(viewModel);
 
-      // onSubmitSuccess(setViewModel);
-      setViewModel(new FormViewModel(initState)); // TODO: This depends on use cases whether to clear form or change nothing
+      if (onSubmitSuccess) {
+        onSubmitSuccess(setViewModel);
+      }
+
       setSubmitting(false);
     } else {
       setViewModel(viewModel); // notify errors
