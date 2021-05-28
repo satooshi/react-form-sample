@@ -1,3 +1,3 @@
 export default interface ViewModel {
-  serialized: object;
+  get serialized(): object;
 }
