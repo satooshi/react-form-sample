@@ -32,7 +32,7 @@ export default class FooRepository implements Repository<FormViewModel> {
   /** Persists a ViewModel to the backend API */
   async create(viewModel: FormViewModel) {
     // extract keys if the value is true
-    const selectTrue = <T extends object>(obj: T): (keyof T)[] => (
+    const selectTrue = <T extends {[key: string]: boolean}>(obj: T): (keyof T)[] => (
       Object.entries(obj).filter(a => a[1] === true).map(a => a[0] as keyof T)
     );
 
