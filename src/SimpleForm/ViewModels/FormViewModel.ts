@@ -4,6 +4,7 @@ export type Errors = {
   text1?: string;
   text2?: string;
   textArea?: string;
+  checkList?: string;
   radioList?: string;
   select?: string;
   switch?: string;
@@ -13,21 +14,21 @@ export type Errors = {
 
 export type RadioOption = '' | 'radio1' | 'radio2' | 'radio3';
 export type SelectOption = '' | 'option1' | 'option2'| 'option3';
-export type InlineRadioOption = '' | 'radio1' | 'radio2' | 'radio3';
 
-type InlineCheckOption = '1' | '2';
-export type InlineCheckOptions = { [key in InlineCheckOption]: boolean };
+export type CheckOption = '1' | '2';
+export type CheckOptions = { [key in CheckOption]: boolean };
 
 export type Props = {
   errors?: Errors;
   text1: string;
   text2: string;
   textArea: string;
-  radioList: string;
+  checkList: CheckOptions;
+  radioList: RadioOption;
   select: SelectOption;
   switch: boolean;
-  inlineCheck: InlineCheckOptions;
-  inlineRadio: InlineRadioOption;
+  inlineCheck: CheckOptions;
+  inlineRadio: RadioOption;
 };
 
 export default class FormViewModel implements ViewModel {
@@ -39,22 +40,25 @@ export default class FormViewModel implements ViewModel {
 
   #textArea: string;
 
-  #radioList: string;
+  #checkList: CheckOptions;
+
+  #radioList: RadioOption;
 
   #select: SelectOption;
 
   #switch: boolean;
 
-  #inlineRadio: InlineRadioOption;
+  #inlineRadio: RadioOption;
 
-  #inlineCheck: InlineCheckOptions;
+  #inlineCheck: CheckOptions;
 
   constructor(props: Props) {
     this.#errors = props.errors || {};
     this.#text1 = props.text1;
     this.#text2 = props.text2;
     this.#textArea = props.textArea;
-    this.#radioList = props.radioList
+    this.#checkList = props.checkList;
+    this.#radioList = props.radioList;
     this.#select = props.select;
     this.#switch = props.switch;
     this.#inlineRadio = props.inlineRadio;
@@ -63,12 +67,17 @@ export default class FormViewModel implements ViewModel {
 
   // Interfaces used by UI components
 
+  /**
+   * @implements {ViewModel}
+   * @inheritdoc
+   */
   get serialized() {
     return {
       errors: this.errors,
       text1: this.#text1,
       text2: this.#text2,
       textArea: this.#textArea,
+      checkList: this.#checkList,
       radioList: this.#radioList,
       select: this.#select,
       switch: this.#switch,
@@ -98,9 +107,21 @@ export default class FormViewModel implements ViewModel {
     this.validateTextArea();
   }
 
+  get checkList() { return this.#checkList }
+
+  set checkList(value: CheckOptions) {
+    this.#checkList = {...value}
+    this.validateCheckList();
+  }
+
+  replaceCheckList(value: CheckOptions) {
+    this.#checkList = { ...this.#checkList, ...value }
+    this.validateCheckList();
+  }
+
   get radioList() { return this.#radioList }
 
-  set radioList(value: string) {
+  set radioList(value: RadioOption) {
     this.#radioList = value
     this.validateRadioList();
   }
@@ -121,19 +142,19 @@ export default class FormViewModel implements ViewModel {
 
   get inlineRadio() { return this.#inlineRadio }
 
-  set inlineRadio(value: InlineRadioOption) {
+  set inlineRadio(value: RadioOption) {
     this.#inlineRadio = value
     this.validateInlineRadio();
   }
 
   get inlineCheck() { return this.#inlineCheck }
 
-  set inlineCheck(value: InlineCheckOptions) {
+  set inlineCheck(value: CheckOptions) {
     this.#inlineCheck = {...value}
     this.validateInlineCheck();
   }
 
-  replaceInlineCheck(value: InlineCheckOptions) {
+  replaceInlineCheck(value: CheckOptions) {
     this.#inlineCheck = { ...this.#inlineCheck, ...value }
     this.validateInlineCheck();
   }
@@ -150,6 +171,7 @@ export default class FormViewModel implements ViewModel {
     this.validateText1();
     this.validateText2();
     this.validateTextArea();
+    this.validateCheckList();
     this.validateRadioList();
     this.validateSelect();
     this.validateSwitch();
@@ -184,6 +206,15 @@ export default class FormViewModel implements ViewModel {
     }
 
     delete this.#errors.textArea;
+  }
+
+  private validateCheckList() {
+    if (!Object.values(this.#checkList).find((v) => v === true)) {
+      this.#errors.checkList = 'Required';
+      return;
+    }
+
+    delete this.#errors.checkList;
   }
 
   private validateRadioList() {

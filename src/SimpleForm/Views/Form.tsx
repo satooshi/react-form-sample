@@ -1,13 +1,14 @@
 import React, { useState, useCallback } from 'react';
 import FormViewModel, {
-  InlineRadioOption,
-  InlineCheckOptions,
+  CheckOptions,
+  RadioOption,
   SelectOption,
 } from '../ViewModels/FormViewModel';
 import InlineCheckList, {
   ValueState,
 } from '../../Components/Bootstrap/InlineCheckList';
 import InlineRadioList from '../../Components/Bootstrap/InlineRadioList';
+import CheckList from '../../Components/Bootstrap/CheckList';
 import RadioList from '../../Components/Bootstrap/RadioList';
 import Select from '../../Components/Bootstrap/Select';
 import Switch from '../../Components/Bootstrap/Switch';
@@ -49,8 +50,13 @@ const Form: React.FC<FormProps> = ({
     setViewModel(viewModel);
   }, []);
 
+  const handleCheckListChange = useCallback((value: ValueState) => {
+    viewModel.replaceCheckList(value as CheckOptions);
+    setViewModel(viewModel);
+  }, []);
+
   const handleRadioListChange = useCallback((value: string) => {
-    viewModel.radioList = value;
+    viewModel.radioList = value as RadioOption;
     setViewModel(viewModel);
   }, []);
 
@@ -65,23 +71,23 @@ const Form: React.FC<FormProps> = ({
   }, []);
 
   const handleInlineCheckChange = useCallback((value: ValueState) => {
-    viewModel.replaceInlineCheck(value as InlineCheckOptions);
+    viewModel.replaceInlineCheck(value as CheckOptions);
     setViewModel(viewModel);
   }, []);
 
   const handleInlineRadioChange = useCallback((value: string) => {
-    viewModel.inlineRadio = value as InlineRadioOption;
+    viewModel.inlineRadio = value as RadioOption;
     setViewModel(viewModel);
   }, []);
 
   async function handleSubmit(e: React.FormEvent) {
-    console.log('Submitting the form');
     setSubmitting(true);
     e.preventDefault();
 
     const formErrors = viewModel.validate();
 
     if (Object.keys(formErrors).length === 0) {
+      console.log('Submitting the form');
       await useCase.create(viewModel);
 
       if (onSubmitSuccess) {
@@ -90,6 +96,7 @@ const Form: React.FC<FormProps> = ({
 
       setSubmitting(false);
     } else {
+      console.log('the form validation failed', { errors: viewModel.errors });
       setViewModel(viewModel); // notify errors
       setSubmitting(false);
     }
@@ -132,6 +139,19 @@ const Form: React.FC<FormProps> = ({
           onChange={handleSelectChange}
           error={viewModel.errors.select}
           options={['option1', 'option2', 'option3']}
+        />
+      </div>
+      <div className="mb-3">
+        <CheckList
+          id="check_list"
+          labelText="Check List:"
+          values={viewModel.checkList}
+          onChange={handleCheckListChange}
+          error={viewModel.errors.checkList}
+          options={[
+            { label: 'check1', value: '1' },
+            { label: 'check2', value: '2' },
+          ]}
         />
       </div>
       <div className="mb-3">

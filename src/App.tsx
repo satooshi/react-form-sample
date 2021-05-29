@@ -16,6 +16,7 @@ const initState: Props = {
   text1: '',
   text2: '',
   textArea: '',
+  checkList: { 1: false, 2: false },
   radioList: '',
   select: '',
   switch: false,

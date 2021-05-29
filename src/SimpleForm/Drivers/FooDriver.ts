@@ -9,6 +9,7 @@ export default class FooDriver extends ApiDriver implements CommandDriver {
   private url = 'http://localhost';
 
   create<E>(data: CreateRequest) {
+    console.log('Sending create data', {data});
     return this.postRequest<E, CreateRequest>(this.url, data);
   }
 
