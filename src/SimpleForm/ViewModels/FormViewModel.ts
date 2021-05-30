@@ -1,6 +1,6 @@
-import ViewModel from "./ViewModel";
+import {ViewModel} from "ViewModels/Interfaces";
 
-export type Errors = {
+export interface Errors {
   text1?: string;
   text2?: string;
   textArea?: string;
@@ -19,7 +19,7 @@ export type MultiSelectValue = { [key in SelectValue]: boolean }
 export type CheckValue = 'C1' | 'C2' | 'C3' | 'C4';
 export type CheckOptions = { [key in CheckValue]: boolean };
 
-export type Props = {
+export interface Props {
   errors?: Errors;
   text1: string;
   text2: string;
@@ -63,7 +63,7 @@ export default class FormViewModel implements ViewModel {
     this.#select = props.select;
     this.#switch = props.switch;
     this.#inlineRadio = props.inlineRadio;
-    this.#inlineCheck = { ...{1: false, 2: false}, ...props.inlineCheck};
+    this.#inlineCheck = { ...props.inlineCheck};
   }
 
   // Interfaces used by UI components
@@ -162,11 +162,25 @@ export default class FormViewModel implements ViewModel {
 
   // ViewModel Validation
 
+  /**
+   * @implements {ViewModel}
+   * @inheritdoc
+   */
   get errors() {
     return {...this.#errors};
   }
 
-  validate() {
+  /**
+   * @implements {ViewModel}
+   * @inheritdoc
+   */
+  get isValid() {
+    this.validate();
+
+    return Object.keys(this.#errors).length === 0
+  }
+
+  private validate() {
     this.#errors = {};
 
     this.validateText1();

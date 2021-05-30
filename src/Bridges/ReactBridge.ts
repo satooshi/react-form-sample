@@ -1,5 +1,5 @@
 import {useState, useRef, useEffect} from 'react';
-import ViewModel from '../ViewModels/ViewModel';
+import {ViewModel} from '../ViewModels/Interfaces';
 
 // const [viewModel, setViewModel] = useViewModel(new FormViewModel(initState));
 export function useViewModel<T extends ViewModel>(initialViewModel: T) {

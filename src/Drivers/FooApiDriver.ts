@@ -1,11 +1,7 @@
-import { CommandDriver } from "../Repositories/Interfaces";
+import {FooApiDriverInterface, CreateRequest, UpdateRequest, DeleteRequest} from 'Repositories/FooApiDriverInterface';
 import ApiDriver from "./ApiDriver";
 
-interface CreateRequest {}
-interface UpdateRequest {}
-interface DeleteRequest {}
-
-export default class FooDriver extends ApiDriver implements CommandDriver {
+export default class FooApiDriver extends ApiDriver implements FooApiDriverInterface {
   private url = 'http://localhost';
 
   create<E>(data: CreateRequest) {

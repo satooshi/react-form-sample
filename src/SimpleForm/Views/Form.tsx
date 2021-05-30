@@ -1,20 +1,21 @@
 import React, { useState, useCallback } from 'react';
+import { debuglog } from 'Utils';
+import { ValueState } from 'Components/Bootstrap/Types';
+import InlineRadioList from 'Components/Bootstrap/InlineRadioList';
+import InlineCheckList from 'Components/Bootstrap/InlineCheckList';
+import CheckList from 'Components/Bootstrap/CheckList';
+import RadioList from 'Components/Bootstrap/RadioList';
+import Select from 'Components/Bootstrap/Select';
+import Switch from 'Components/Bootstrap/Switch';
+import TextArea from 'Components/Bootstrap/TextArea';
+import TextInput from 'Components/Bootstrap/TextInput';
 import FormViewModel, {
   CheckOptions,
   RadioValue,
   SelectValue,
-} from '../ViewModels/FormViewModel';
-import { ValueState } from '../../Components/Bootstrap/Types';
-import InlineRadioList from '../../Components/Bootstrap/InlineRadioList';
-import InlineCheckList from '../../Components/Bootstrap/InlineCheckList';
-import CheckList from '../../Components/Bootstrap/CheckList';
-import RadioList from '../../Components/Bootstrap/RadioList';
-import Select from '../../Components/Bootstrap/Select';
-import Switch from '../../Components/Bootstrap/Switch';
-import TextArea from '../../Components/Bootstrap/TextArea';
-import TextInput from '../../Components/Bootstrap/TextInput';
-import FormUseCase from '../UseCases/FormUseCase';
-import { useViewModel } from '../Bridges/ReactBridge';
+} from 'SimpleForm/ViewModels/FormViewModel';
+import FormUseCase from 'SimpleForm//UseCases/FormUseCase';
+import { useViewModel } from 'Bridges/ReactBridge';
 
 interface FormProps {
   useCase: FormUseCase<FormViewModel>;
@@ -31,8 +32,7 @@ const Form: React.FC<FormProps> = ({
 }) => {
   const [submitting, setSubmitting] = useState(false);
   const [viewModel, setViewModel] = useViewModel(initialViewModel);
-
-  console.log('render Form', { viewModel });
+  debuglog('render Form', { viewModel, submitting });
 
   const handleTextChange1 = useCallback((value: string) => {
     viewModel.text1 = value;
@@ -83,9 +83,7 @@ const Form: React.FC<FormProps> = ({
     setSubmitting(true);
     e.preventDefault();
 
-    const formErrors = viewModel.validate();
-
-    if (Object.keys(formErrors).length === 0) {
+    if (viewModel.isValid) {
       console.log('Submitting the form');
       await useCase.create(viewModel);
 

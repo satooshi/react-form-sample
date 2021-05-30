@@ -1,16 +1,17 @@
 import React from 'react';
-import logo from './logo.svg'; // eslint-disable-line @typescript-eslint/no-unused-vars
-// import './App.css';
-import SimpleForm from './SimpleForm/Views/Form';
-import FooRepository from './SimpleForm/Repositories/FooRepository';
-import FooDriver from './SimpleForm/Drivers/FooDriver';
-import FormUseCase from './SimpleForm/UseCases/FormUseCase';
-import FormViewModel, { Props } from './SimpleForm/ViewModels/FormViewModel';
+import { debuglog } from 'Utils';
+import FormViewModel, { Props } from 'SimpleForm/ViewModels/FormViewModel';
+import FormUseCase from 'SimpleForm/UseCases/FormUseCase';
+import FooApiDriver from 'Drivers/FooApiDriver';
+import FooRepository from 'SimpleForm/Repositories/FooRepository';
+import SimpleForm from 'SimpleForm/Views/Form';
+import logo from 'logo.svg'; // eslint-disable-line @typescript-eslint/no-unused-vars
+// import 'App.css';
 
-const fooDriver = new FooDriver();
+const fooDriver = new FooApiDriver();
 const fooRepository = new FooRepository(fooDriver);
 const formUseCase = new FormUseCase(fooRepository);
-console.log('Wired', formUseCase);
+debuglog('Wired', { formUseCase });
 
 const initState: Props = {
   text1: '',

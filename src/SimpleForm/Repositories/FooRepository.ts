@@ -1,37 +1,22 @@
+import {FooApiDriverInterface} from 'Repositories/FooApiDriverInterface';
+import {Repository} from "UseCases/Interfaces";
 import FormViewModel from "../ViewModels/FormViewModel";
-import {CommandDriver} from './Interfaces';
-import {Repository} from '../UseCases/Interfaces';
 
 interface CreateErrors {
   text1?: string;
 }
 
-type CheckValue = 'C1' | 'C2' | 'C3' | 'C4';
-type RadioValue = 'R1' | 'R2' | 'R3';
-type SelectValue = 'S1' | 'S2'| 'S3';
-
-interface CreateRequest {
-  text1: string;
-  text2: string;
-  textArea: string;
-  checkList: CheckValue[];
-  radioList: RadioValue;
-  select: SelectValue;
-  switch: boolean;
-  inlineRadio: RadioValue;
-  inlineCheck: CheckValue[];
-}
-
 export default class FooRepository implements Repository<FormViewModel> {
   #driver;
 
-  constructor(driver: CommandDriver) {
+  constructor(driver: FooApiDriverInterface) {
     this.#driver = driver;
   }
 
   /** Persists a ViewModel to the backend API */
   async create(viewModel: FormViewModel) {
     // extract keys if the value is true
+    // TODO: Refactor to DataTransformer
     const selectTrue = <T extends {[key: string]: boolean}>(obj: T): (keyof T)[] => (
       Object.entries(obj).filter(a => a[1] === true).map(a => a[0] as keyof T)
     );
@@ -56,7 +41,7 @@ export default class FooRepository implements Repository<FormViewModel> {
       textArea
     } = viewModel;
 
-    const requestData: CreateRequest = {
+    const requestData = {
       checkList: selectTrue(viewModel.checkList),
       inlineCheck: selectTrue(viewModel.inlineCheck),
       inlineRadio,
@@ -69,7 +54,7 @@ export default class FooRepository implements Repository<FormViewModel> {
     };
 
     try {
-      const response = await this.#driver.create<CreateErrors, CreateRequest>(requestData);
+      const response = await this.#driver.create<CreateErrors>(requestData);
 
       return response.message;
     } catch(e) {
