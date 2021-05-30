@@ -6,20 +6,20 @@ interface CreateErrors {
   text1?: string;
 }
 
-type CheckOption = '1' | '2';
-type RadioOption = 'radio1' | 'radio2' | 'radio3';
-type SelectOption = 'option1' | 'option2'| 'option3';
+type CheckValue = 'C1' | 'C2' | 'C3' | 'C4';
+type RadioValue = 'R1' | 'R2' | 'R3';
+type SelectValue = 'S1' | 'S2'| 'S3';
 
 interface CreateRequest {
   text1: string;
   text2: string;
   textArea: string;
-  checkList: CheckOption[];
-  radioList: RadioOption;
-  select: SelectOption;
+  checkList: CheckValue[];
+  radioList: RadioValue;
+  select: SelectValue;
   switch: boolean;
-  inlineRadio: RadioOption;
-  inlineCheck: CheckOption[];
+  inlineRadio: RadioValue;
+  inlineCheck: CheckValue[];
 }
 
 export default class FooRepository implements Repository<FormViewModel> {

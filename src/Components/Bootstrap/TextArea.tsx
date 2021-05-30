@@ -1,5 +1,6 @@
 import React from 'react';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from './Atoms/ErrorMessage';
+import FormLabel from './Atoms/FormLabel';
 
 type Props = {
   error?: string;
@@ -16,16 +17,15 @@ const TextArea: React.FC<Props> = ({
   onChange,
   value,
 }) => {
+  console.log('render TextArea', { id });
+
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     onChange(event.target.value);
   }
-  console.log('render TextArea', { id });
 
   return (
     <>
-      <label className="form-label" htmlFor={id}>
-        {labelText}
-      </label>
+      <FormLabel id={id} labelText={labelText} />
       <textarea
         id={id}
         onChange={handleChange}

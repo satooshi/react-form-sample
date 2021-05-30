@@ -1,13 +1,15 @@
 import React from 'react';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from './Atoms/ErrorMessage';
+import FormLabel from './Atoms/FormLabel';
+import { Option, Value } from './Types';
 
 type Props = {
   error?: string;
   id: string;
   labelText: string;
   onChange: (value: string) => void;
-  value?: string;
-  options: string[];
+  value?: Value;
+  options: Option[];
 };
 
 const Select: React.FC<Props> = ({
@@ -18,26 +20,25 @@ const Select: React.FC<Props> = ({
   options,
   value,
 }) => {
+  console.log('render Select', { id });
+
   function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
     onChange(event.target.value);
   }
-  console.log('render Select', { id });
 
   return (
     <>
-      <label className="form-label" htmlFor={id}>
-        {labelText}:
-      </label>
+      <FormLabel id={id} labelText={labelText} />
       <select
         id={id}
+        name={id}
         className={error ? 'form-select is-invalid' : 'form-select'}
         value={value}
         onChange={handleChange}
       >
-        <option value="">Please Select {labelText}</option>
         {options.map((option) => (
-          <option value={option} key={`${id}-${option}`}>
-            {option}
+          <option value={option.value} key={`${id}-${option.value}`}>
+            {option.label}
           </option>
         ))}
       </select>

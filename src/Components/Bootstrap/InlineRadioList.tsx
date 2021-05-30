@@ -1,16 +1,16 @@
-import React, { ChangeEvent } from 'react';
-import ErrorMessage from './ErrorMessage';
-
-type Value = string | number;
-type Option = { label: string; value: Value };
+import React, { ChangeEvent, useCallback } from 'react';
+import ErrorMessage from './Atoms/ErrorMessage';
+import FormCheckLabel from './Atoms/FormCheckLabel';
+import FormCheckInput from './Atoms/FormCheckInput';
+import { Option, Value } from './Types';
 
 type Props = {
   error?: string;
   id: string;
   labelText: string;
   onChange: (value: string) => void;
-  value: string;
   options: Option[];
+  value: Value;
 };
 
 const InlineRadioList: React.FC<Props> = ({
@@ -21,15 +21,19 @@ const InlineRadioList: React.FC<Props> = ({
   options,
   value,
 }) => {
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    onChange(event.target.value);
-  }
-
   console.log('render InlineRadioList');
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onChange(event.target.value);
+    },
+    [onchange]
+  );
+
   return (
     <>
       <span className="form-check-inline">{labelText}</span>
-      {options.map((option, index) => (
+      {options.map((option) => (
         <div
           className={
             error
@@ -38,20 +42,19 @@ const InlineRadioList: React.FC<Props> = ({
           }
           key={`${id}-${option.value}`}
         >
-          <input
-            className={
-              error ? 'form-check-input is-invalid' : 'form-check-input'
-            }
-            type="radio"
-            id={`${id}-${index}`}
-            name={id}
+          <FormCheckInput
             checked={option.value === value}
-            value={option.value}
+            error={error}
+            id={`${id}-${option.value}`}
+            name={id}
             onChange={handleChange}
+            type="radio"
+            value={option.value}
           />
-          <label className="form-check-label" htmlFor={`${id}-${index}`}>
-            {option.label}
-          </label>
+          <FormCheckLabel
+            id={`${id}-${option.value}`}
+            labelText={option.label}
+          />
         </div>
       ))}
       <ErrorMessage error={error} />

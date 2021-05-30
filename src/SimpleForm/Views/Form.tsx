@@ -1,13 +1,12 @@
 import React, { useState, useCallback } from 'react';
 import FormViewModel, {
   CheckOptions,
-  RadioOption,
-  SelectOption,
+  RadioValue,
+  SelectValue,
 } from '../ViewModels/FormViewModel';
-import InlineCheckList, {
-  ValueState,
-} from '../../Components/Bootstrap/InlineCheckList';
+import { ValueState } from '../../Components/Bootstrap/Types';
 import InlineRadioList from '../../Components/Bootstrap/InlineRadioList';
+import InlineCheckList from '../../Components/Bootstrap/InlineCheckList';
 import CheckList from '../../Components/Bootstrap/CheckList';
 import RadioList from '../../Components/Bootstrap/RadioList';
 import Select from '../../Components/Bootstrap/Select';
@@ -56,12 +55,12 @@ const Form: React.FC<FormProps> = ({
   }, []);
 
   const handleRadioListChange = useCallback((value: string) => {
-    viewModel.radioList = value as RadioOption;
+    viewModel.radioList = value as RadioValue;
     setViewModel(viewModel);
   }, []);
 
   const handleSelectChange = useCallback((value: string) => {
-    viewModel.select = value as SelectOption;
+    viewModel.select = value as SelectValue;
     setViewModel(viewModel);
   }, []);
 
@@ -76,7 +75,7 @@ const Form: React.FC<FormProps> = ({
   }, []);
 
   const handleInlineRadioChange = useCallback((value: string) => {
-    viewModel.inlineRadio = value as RadioOption;
+    viewModel.inlineRadio = value as RadioValue;
     setViewModel(viewModel);
   }, []);
 
@@ -138,7 +137,12 @@ const Form: React.FC<FormProps> = ({
           value={viewModel.select}
           onChange={handleSelectChange}
           error={viewModel.errors.select}
-          options={['option1', 'option2', 'option3']}
+          options={[
+            { label: 'Please select', value: '' },
+            { label: 'option1', value: 'S1' },
+            { label: 'option2', value: 'S2' },
+            { label: 'option3', value: 'S3' },
+          ]}
         />
       </div>
       <div className="mb-3">
@@ -149,8 +153,10 @@ const Form: React.FC<FormProps> = ({
           onChange={handleCheckListChange}
           error={viewModel.errors.checkList}
           options={[
-            { label: 'check1', value: '1' },
-            { label: 'check2', value: '2' },
+            { label: 'check1', value: 'C1' },
+            { label: 'check2', value: 'C2' },
+            { label: 'check3', value: 'C3' },
+            { label: 'check4', value: 'C4' },
           ]}
         />
       </div>
@@ -161,7 +167,11 @@ const Form: React.FC<FormProps> = ({
           value={viewModel.radioList}
           onChange={handleRadioListChange}
           error={viewModel.errors.radioList}
-          options={['radio1', 'radio2', 'radio3']}
+          options={[
+            { label: 'radio1', value: 'R1' },
+            { label: 'radio2', value: 'R2' },
+            { label: 'radio3', value: 'R3' },
+          ]}
         />
       </div>
       <div className="mb-3">
@@ -182,8 +192,10 @@ const Form: React.FC<FormProps> = ({
           onChange={handleInlineCheckChange}
           error={viewModel.errors.inlineCheck}
           options={[
-            { label: 'check1', value: '1' },
-            { label: 'check2', value: '2' },
+            { label: 'check1', value: 'C1' },
+            { label: 'check2', value: 'C2' },
+            { label: 'check3', value: 'C3' },
+            { label: 'check4', value: 'C4' },
           ]}
         />
       </div>
@@ -195,8 +207,9 @@ const Form: React.FC<FormProps> = ({
           onChange={handleInlineRadioChange}
           error={viewModel.errors.inlineRadio}
           options={[
-            { label: 'check1', value: '1' },
-            { label: 'check2', value: '2' },
+            { label: 'radio1', value: 'R1' },
+            { label: 'radio2', value: 'R2' },
+            { label: 'radio3', value: 'R3' },
           ]}
         />
       </div>

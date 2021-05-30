@@ -1,9 +1,8 @@
-import React, { ChangeEvent } from 'react';
-import ErrorMessage from './ErrorMessage';
-
-type Value = string | number;
-type Option = { label: string; value: Value };
-export type ValueState = { [key: string]: boolean; [key: number]: boolean };
+import React, { ChangeEvent, useCallback } from 'react';
+import ErrorMessage from './Atoms/ErrorMessage';
+import FormCheckLabel from './Atoms/FormCheckLabel';
+import FormCheckInput from './Atoms/FormCheckInput';
+import { Option, ValueState } from './Types';
 
 type Props = {
   error?: string;
@@ -22,34 +21,38 @@ const CheckList: React.FC<Props> = ({
   options,
   values,
 }) => {
-  function handleChange(event: ChangeEvent<HTMLInputElement>) {
-    onChange({
-      [event.target.value]: event.target.checked,
-    });
-  }
   console.log('render InlineCheckList');
+
+  const handleChange = useCallback(
+    (event: ChangeEvent<HTMLInputElement>) => {
+      onChange({
+        [event.target.value]: event.target.checked,
+      });
+    },
+    [onChange]
+  );
 
   return (
     <>
       <span className="form-check-inline">{labelText}</span>
-      {options.map((option, index) => (
+      {options.map((option) => (
         <div
           className={error ? 'form-check is-invalid' : 'form-check'}
           key={`${id}-${option.value}`}
         >
-          <input
-            className={
-              error ? 'form-check-input is-invalid' : 'form-check-input'
-            }
+          <FormCheckInput
+            error={error}
             type="checkbox"
-            id={`${id}-${index}`}
+            id={`${id}-${option.value}`}
+            name={`${id}-${option.value}`}
             checked={values[option.value] === true}
             value={option.value}
             onChange={handleChange}
           />
-          <label className="form-check-label" htmlFor={`${id}-${index}`}>
-            {option.label}
-          </label>
+          <FormCheckLabel
+            id={`${id}-${option.value}`}
+            labelText={option.label}
+          />
         </div>
       ))}
       <ErrorMessage error={error} />

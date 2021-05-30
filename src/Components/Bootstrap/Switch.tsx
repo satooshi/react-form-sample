@@ -1,5 +1,6 @@
 import React from 'react';
-import ErrorMessage from './ErrorMessage';
+import ErrorMessage from './Atoms/ErrorMessage';
+import FormCheckLabel from './Atoms/FormCheckLabel';
 
 type Props = {
   checked: boolean;
@@ -18,10 +19,11 @@ const Switch: React.FC<Props> = ({
   onChange,
   value,
 }) => {
+  console.log('render Switch', { id });
+
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     onChange(event.target.checked);
   }
-  console.log('render Switch', { id });
 
   return (
     <div className="form-check form-switch">
@@ -33,9 +35,7 @@ const Switch: React.FC<Props> = ({
         type="checkbox"
         value={value}
       />
-      <label className="form-check-label" htmlFor={id}>
-        {labelText}
-      </label>
+      <FormCheckLabel id={id} labelText={labelText} />
       <ErrorMessage error={error} />
     </div>
   );

@@ -12,11 +12,12 @@ export type Errors = {
   inlineRadio?: string;
 };
 
-export type RadioOption = '' | 'radio1' | 'radio2' | 'radio3';
-export type SelectOption = '' | 'option1' | 'option2'| 'option3';
+export type RadioValue = '' | 'R1' | 'R2' | 'R3';
+export type SelectValue = '' | 'S1' | 'S2' | 'S3';
+export type MultiSelectValue = { [key in SelectValue]: boolean }
 
-export type CheckOption = '1' | '2';
-export type CheckOptions = { [key in CheckOption]: boolean };
+export type CheckValue = 'C1' | 'C2' | 'C3' | 'C4';
+export type CheckOptions = { [key in CheckValue]: boolean };
 
 export type Props = {
   errors?: Errors;
@@ -24,11 +25,11 @@ export type Props = {
   text2: string;
   textArea: string;
   checkList: CheckOptions;
-  radioList: RadioOption;
-  select: SelectOption;
+  radioList: RadioValue;
+  select: SelectValue;
   switch: boolean;
   inlineCheck: CheckOptions;
-  inlineRadio: RadioOption;
+  inlineRadio: RadioValue;
 };
 
 export default class FormViewModel implements ViewModel {
@@ -42,13 +43,13 @@ export default class FormViewModel implements ViewModel {
 
   #checkList: CheckOptions;
 
-  #radioList: RadioOption;
+  #radioList: RadioValue;
 
-  #select: SelectOption;
+  #select: SelectValue;
 
   #switch: boolean;
 
-  #inlineRadio: RadioOption;
+  #inlineRadio: RadioValue;
 
   #inlineCheck: CheckOptions;
 
@@ -121,14 +122,14 @@ export default class FormViewModel implements ViewModel {
 
   get radioList() { return this.#radioList }
 
-  set radioList(value: RadioOption) {
+  set radioList(value: RadioValue) {
     this.#radioList = value
     this.validateRadioList();
   }
 
   get select() { return this.#select }
 
-  set select(value: SelectOption) {
+  set select(value: SelectValue) {
     this.#select = value
     this.validateSelect();
   }
@@ -142,7 +143,7 @@ export default class FormViewModel implements ViewModel {
 
   get inlineRadio() { return this.#inlineRadio }
 
-  set inlineRadio(value: RadioOption) {
+  set inlineRadio(value: RadioValue) {
     this.#inlineRadio = value
     this.validateInlineRadio();
   }

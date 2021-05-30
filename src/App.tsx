@@ -16,11 +16,11 @@ const initState: Props = {
   text1: '',
   text2: '',
   textArea: '',
-  checkList: { 1: false, 2: false },
+  checkList: { C1: false, C2: false, C3: false, C4: false },
   radioList: '',
   select: '',
   switch: false,
-  inlineCheck: { 1: false, 2: false },
+  inlineCheck: { C1: false, C2: false, C3: false, C4: false },
   inlineRadio: '',
 };
 const viewModel = new FormViewModel(initState);
