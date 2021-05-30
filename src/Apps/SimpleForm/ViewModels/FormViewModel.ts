@@ -1,4 +1,5 @@
 import {ViewModel} from "ViewModels/Interfaces";
+import v from 'ViewModels/Validator';
 
 export interface Errors {
   text1?: string;
@@ -33,7 +34,7 @@ export interface Props {
 };
 
 export default class FormViewModel implements ViewModel {
-  #errors: Errors = {};
+  #errors: Errors;
 
   #text1: string;
 
@@ -66,7 +67,7 @@ export default class FormViewModel implements ViewModel {
     this.#inlineCheck = { ...props.inlineCheck};
   }
 
-  // Interfaces used by UI components
+  // Interfaces used by react bridge
 
   /**
    * @implements {ViewModel}
@@ -86,6 +87,8 @@ export default class FormViewModel implements ViewModel {
       inlineCheck: {...this.#inlineCheck},
     }
   }
+
+  // Interfaces used by UI components
 
   get text1() { return this.#text1 }
 
@@ -197,7 +200,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateText1() {
-    if (this.#text1.length === 0) {
+    if (v.isBlank(this.#text1)) {
       this.#errors.text1 = 'Required';
       return;
     }
@@ -206,7 +209,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateText2() {
-    if (this.#text2.length === 0) {
+    if (v.isBlank(this.#text2)) {
       this.#errors.text2 = 'Required';
       return;
     }
@@ -215,7 +218,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateTextArea() {
-    if (this.#textArea.length === 0) {
+    if (v.isBlank(this.#textArea)) {
       this.#errors.textArea = 'Required';
       return;
     }
@@ -224,7 +227,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateCheckList() {
-    if (!Object.values(this.#checkList).find((v) => v === true)) {
+    if (v.isBlank(this.#checkList)) {
       this.#errors.checkList = 'Required';
       return;
     }
@@ -233,7 +236,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateRadioList() {
-    if (this.#radioList.length === 0) {
+    if (v.isBlank(this.#radioList)) {
       this.#errors.radioList = 'Required';
       return;
     }
@@ -242,7 +245,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateSelect() {
-    if (this.#select.length === 0) {
+    if (v.isBlank(this.#select)) {
       this.#errors.select = 'Required';
       return;
     }
@@ -251,7 +254,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateSwitch() {
-    if (this.#switch === false) {
+    if (v.isBlank(this.#switch)) {
       this.#errors.switch = 'Required';
       return;
     }
@@ -260,7 +263,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateInlineCheck() {
-    if (!Object.values(this.#inlineCheck).find((v) => v === true)) {
+    if (v.isBlank(this.#inlineCheck)) {
       this.#errors.inlineCheck = 'Required';
       return;
     }
@@ -269,7 +272,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateInlineRadio() {
-    if (this.#inlineRadio === '') {
+    if (v.isBlank(this.#inlineRadio)) {
       this.#errors.inlineRadio = 'Required';
       return;
     }
