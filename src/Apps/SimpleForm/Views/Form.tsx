@@ -13,8 +13,8 @@ import FormViewModel, {
   CheckOptions,
   RadioValue,
   SelectValue,
-} from 'SimpleForm/ViewModels/FormViewModel';
-import FormUseCase from 'SimpleForm//UseCases/FormUseCase';
+} from 'Apps/SimpleForm/ViewModels/FormViewModel';
+import FormUseCase from 'Apps/SimpleForm/UseCases/FormUseCase';
 import { useViewModel } from 'Bridges/ReactBridge';
 
 interface FormProps {
@@ -84,7 +84,7 @@ const Form: React.FC<FormProps> = ({
     e.preventDefault();
 
     if (viewModel.isValid) {
-      console.log('Submitting the form');
+      debuglog('Submitting the form');
       await useCase.create(viewModel);
 
       if (onSubmitSuccess) {
@@ -93,7 +93,7 @@ const Form: React.FC<FormProps> = ({
 
       setSubmitting(false);
     } else {
-      console.log('the form validation failed', { errors: viewModel.errors });
+      debuglog('the form validation failed', { errors: viewModel.errors });
       setViewModel(viewModel); // notify errors
       setSubmitting(false);
     }

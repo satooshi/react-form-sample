@@ -1,4 +1,5 @@
 import React from 'react';
+import { debuglog } from 'Utils';
 import ErrorMessage from './Atoms/ErrorMessage';
 import FormLabel from './Atoms/FormLabel';
 
@@ -17,7 +18,7 @@ const TextArea: React.FC<Props> = ({
   onChange,
   value,
 }) => {
-  console.log('render TextArea', { id });
+  debuglog('render TextArea', { id, value });
 
   function handleChange(event: React.ChangeEvent<HTMLTextAreaElement>) {
     onChange(event.target.value);

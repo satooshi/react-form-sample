@@ -1,4 +1,5 @@
 import React, { useCallback } from 'react';
+import { debuglog } from 'Utils';
 import ErrorMessage from './Atoms/ErrorMessage';
 import FormCheckLabel from './Atoms/FormCheckLabel';
 import FormCheckInput from './Atoms/FormCheckInput';
@@ -21,7 +22,7 @@ const RadioList: React.FC<Props> = ({
   options,
   value,
 }) => {
-  console.log('render RadioList', { id });
+  debuglog('render RadioList', { id, value });
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>) => {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { debuglog } from 'Utils';
 import { Value } from '../Types';
 
 interface Props {
@@ -20,7 +21,7 @@ const FormCheckInput: React.FC<Props> = ({
   type,
   value,
 }) => {
-  console.log('render FormCheckInput');
+  debuglog('render FormCheckInput', { id, value });
 
   return (
     <input

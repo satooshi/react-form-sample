@@ -1,4 +1,5 @@
 import React from 'react';
+import { debuglog } from 'Utils';
 
 interface Props {
   id: string;
@@ -6,7 +7,7 @@ interface Props {
 }
 
 const FormCheckLabel: React.FC<Props> = ({ id, labelText }) => {
-  console.log('render FormCheckLabel');
+  debuglog('render FormCheckLabel', { id, labelText });
 
   return (
     <label className="form-check-label" htmlFor={id}>

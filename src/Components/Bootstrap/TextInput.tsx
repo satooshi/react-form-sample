@@ -1,4 +1,5 @@
 import React from 'react';
+import { debuglog } from 'Utils';
 import ErrorMessage from './Atoms/ErrorMessage';
 import FormLabel from './Atoms/FormLabel';
 
@@ -17,7 +18,7 @@ const TextInput: React.FC<Props> = ({
   onChange,
   value,
 }) => {
-  console.log('render TextInput', { id });
+  debuglog('render TextInput', { id, value });
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     onChange(event.target.value);

@@ -1,11 +1,11 @@
 import React from 'react';
 import { debuglog } from 'Utils';
-import FormViewModel, { Props } from 'SimpleForm/ViewModels/FormViewModel';
-import FormUseCase from 'SimpleForm/UseCases/FormUseCase';
+import FormViewModel, { Props } from 'Apps/SimpleForm/ViewModels/FormViewModel';
+import FormUseCase from 'Apps/SimpleForm/UseCases/FormUseCase';
 import FooApiDriver from 'Drivers/FooApiDriver';
-import FooRepository from 'SimpleForm/Repositories/FooRepository';
-import SimpleForm from 'SimpleForm/Views/Form';
-import logo from 'logo.svg'; // eslint-disable-line @typescript-eslint/no-unused-vars
+import FooRepository from 'Apps/SimpleForm/Repositories/FooRepository';
+import SimpleForm from 'Apps/SimpleForm/Views/Form';
+// import logo from 'logo.svg'; // eslint-disable-line @typescript-eslint/no-unused-vars
 // import 'App.css';
 
 const fooDriver = new FooApiDriver();

@@ -1,4 +1,5 @@
 import React from 'react';
+import { debuglog } from 'Utils';
 import ErrorMessage from './Atoms/ErrorMessage';
 import FormLabel from './Atoms/FormLabel';
 import { Option, Value } from './Types';
@@ -20,7 +21,7 @@ const Select: React.FC<Props> = ({
   options,
   value,
 }) => {
-  console.log('render Select', { id });
+  debuglog('render Select', { id, value });
 
   function handleChange(event: React.ChangeEvent<HTMLSelectElement>) {
     onChange(event.target.value);

@@ -1,4 +1,5 @@
 import React from 'react';
+import { debuglog } from 'Utils';
 import ErrorMessage from './Atoms/ErrorMessage';
 import FormCheckLabel from './Atoms/FormCheckLabel';
 
@@ -19,7 +20,7 @@ const Switch: React.FC<Props> = ({
   onChange,
   value,
 }) => {
-  console.log('render Switch', { id });
+  debuglog('render Switch', { id, value });
 
   function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
     onChange(event.target.checked);

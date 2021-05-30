@@ -1,4 +1,5 @@
 import React, { ChangeEvent, useCallback } from 'react';
+import { debuglog } from 'Utils';
 import ErrorMessage from './Atoms/ErrorMessage';
 import FormCheckLabel from './Atoms/FormCheckLabel';
 import FormCheckInput from './Atoms/FormCheckInput';
@@ -21,7 +22,7 @@ const CheckList: React.FC<Props> = ({
   options,
   values,
 }) => {
-  console.log('render InlineCheckList');
+  debuglog('render InlineCheckList', { id, values });
 
   const handleChange = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {

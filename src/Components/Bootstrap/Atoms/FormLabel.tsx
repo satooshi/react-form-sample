@@ -1,4 +1,5 @@
 import React from 'react';
+import { debuglog } from 'Utils';
 
 interface Props {
   id: string;
@@ -6,7 +7,7 @@ interface Props {
 }
 
 const FormLabel: React.FC<Props> = ({ id, labelText }) => {
-  console.log('render FormLabel', { id, labelText });
+  debuglog('render FormLabel', { id, labelText });
 
   return (
     <label className="form-label" htmlFor={id}>
