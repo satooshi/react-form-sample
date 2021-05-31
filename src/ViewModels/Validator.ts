@@ -22,52 +22,50 @@ const rangeTextLength = (text: string, min: number, max: number) => {
   return length >= min && length <= max;
 };
 
-export default class Validator {
-  static isBlank(value: string | boolean | { [key:string]: boolean }) {
-    if (typeof value === 'string') {
-      return isTextBlank(value);
-    }
-
-    if (typeof value === 'boolean') {
-      return value === false;
-    }
-
-    return isSelectionBlank(value);
+export function isBlank(value: string | boolean | { [key:string]: boolean }) {
+  if (typeof value === 'string') {
+    return isTextBlank(value);
   }
 
-  static minLength(value: string | SelectionValues, min: number) {
-    if (typeof value === 'string') {
-      return minTextLength(value, min);
-    }
-
-    return minSelectionLength(value, min);
+  if (typeof value === 'boolean') {
+    return value === false;
   }
 
-  static maxLength(value: string | SelectionValues, max: number) {
-    if (typeof value === 'string') {
-      return maxTextLength(value, max);
-    }
+  return isSelectionBlank(value);
+}
 
-    return maxSelectionLength(value, max);
+export function minLength(value: string | SelectionValues, min: number) {
+  if (typeof value === 'string') {
+    return minTextLength(value, min);
   }
 
-  static rangeLength(value: string | SelectionValues, min: number, max: number) {
-    if (typeof value === 'string') {
-      return rangeTextLength(value, min, max);
-    }
+  return minSelectionLength(value, min);
+}
 
-    return rangeSelectionLength(value, min, max);
+export function maxLength(value: string | SelectionValues, max: number) {
+  if (typeof value === 'string') {
+    return maxTextLength(value, max);
   }
 
-  static maxNumber(value: number, max: number) {
-    return value <= max;
+  return maxSelectionLength(value, max);
+}
+
+export function rangeLength(value: string | SelectionValues, min: number, max: number) {
+  if (typeof value === 'string') {
+    return rangeTextLength(value, min, max);
   }
 
-  static minNumber(value: number, min: number) {
-    return value >= min;
-  }
+  return rangeSelectionLength(value, min, max);
+}
 
-  static rangeNumber(value: number, min: number, max: number) {
-    return value >= min && value <= max;
-  }
+export function maxNumber(value: number, max: number) {
+  return value <= max;
+}
+
+export function minNumber(value: number, min: number) {
+  return value >= min;
+}
+
+export function rangeNumber(value: number, min: number, max: number) {
+  return value >= min && value <= max;
 }

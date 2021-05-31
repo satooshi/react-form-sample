@@ -1,5 +1,5 @@
 import {ViewModel} from "ViewModels/Interfaces";
-import v from 'ViewModels/Validator';
+import {isBlank} from 'ViewModels/Validator';
 
 export interface Errors {
   text1?: string;
@@ -200,7 +200,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateText1() {
-    if (v.isBlank(this.#text1)) {
+    if (isBlank(this.#text1)) {
       this.#errors.text1 = 'Required';
       return;
     }
@@ -209,7 +209,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateText2() {
-    if (v.isBlank(this.#text2)) {
+    if (isBlank(this.#text2)) {
       this.#errors.text2 = 'Required';
       return;
     }
@@ -218,7 +218,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateTextArea() {
-    if (v.isBlank(this.#textArea)) {
+    if (isBlank(this.#textArea)) {
       this.#errors.textArea = 'Required';
       return;
     }
@@ -227,7 +227,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateCheckList() {
-    if (v.isBlank(this.#checkList)) {
+    if (isBlank(this.#checkList)) {
       this.#errors.checkList = 'Required';
       return;
     }
@@ -236,7 +236,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateRadioList() {
-    if (v.isBlank(this.#radioList)) {
+    if (isBlank(this.#radioList)) {
       this.#errors.radioList = 'Required';
       return;
     }
@@ -245,7 +245,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateSelect() {
-    if (v.isBlank(this.#select)) {
+    if (isBlank(this.#select)) {
       this.#errors.select = 'Required';
       return;
     }
@@ -254,7 +254,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateSwitch() {
-    if (v.isBlank(this.#switch)) {
+    if (isBlank(this.#switch)) {
       this.#errors.switch = 'Required';
       return;
     }
@@ -263,7 +263,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateInlineCheck() {
-    if (v.isBlank(this.#inlineCheck)) {
+    if (isBlank(this.#inlineCheck)) {
       this.#errors.inlineCheck = 'Required';
       return;
     }
@@ -272,7 +272,7 @@ export default class FormViewModel implements ViewModel {
   }
 
   private validateInlineRadio() {
-    if (v.isBlank(this.#inlineRadio)) {
+    if (isBlank(this.#inlineRadio)) {
       this.#errors.inlineRadio = 'Required';
       return;
     }
