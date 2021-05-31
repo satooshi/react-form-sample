@@ -1,6 +1,6 @@
 /* eslint-disable class-methods-use-this */
 
-import {ApiResponse} from '../Repositories/Interface';
+import {ApiResponse} from '../Repositories/Interfaces';
 
 export default class ApiDriver {
   protected async postRequest<Errors, T>(url: string, data?: T) {
