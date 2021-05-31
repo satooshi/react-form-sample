@@ -1,4 +1,4 @@
-import {FooApiDriverInterface, CreateRequest, UpdateRequest, DeleteRequest} from 'Repositories/FooApiDriverInterface';
+import {FooApiDriverInterface, CreateRequest, UpdateRequest, DeleteRequest} from 'Framework/Repositories/FooApiDriverInterface';
 import { debuglog } from 'Utils';
 import ApiDriver from "./ApiDriver";
 

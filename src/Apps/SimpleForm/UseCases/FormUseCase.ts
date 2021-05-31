@@ -1,14 +1,15 @@
-import { Repository } from "UseCases/Interfaces";
+import FormViewModel from '../ViewModels/FormViewModel';
+import FooRepositoryInterface from "./FooRepositoryInterface";
 
 // TODO: This kind of UseCase might be unnecessary.
-export default class FormUseCase<T> {
+export default class FormUseCase {
   #repository;
 
-  constructor(repository: Repository<T>) {
+  constructor(repository: FooRepositoryInterface) {
     this.#repository = repository;
   }
 
-  create(viewModel: T) {
+  create(viewModel: FormViewModel) {
     return this.#repository.create(viewModel);
   }
 }

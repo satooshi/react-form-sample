@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 
-import {selectTrue, ToPersistentData} from "Repositories/ViewModelTransformer";
-import {CreateRequest} from 'Repositories/FooApiDriverInterface';
+import {selectTrue, ToPersistentData} from "Framework/Repositories/ViewModelTransformer";
+import {CreateRequest} from 'Framework/Repositories/FooApiDriverInterface';
 import FormViewModel from "../ViewModels/FormViewModel";
 
 // export const toViewData: ToViewData<FormViewModel> = () => (new FormViewModel({}));

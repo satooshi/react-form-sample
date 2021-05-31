@@ -1,5 +1,5 @@
-import {ViewModel} from "ViewModels/Interfaces";
-import {isBlank} from 'ViewModels/Validator';
+import {ViewModel} from "Framework/ViewModels/Interfaces";
+import {isBlank} from 'Framework/ViewModels/Validator';
 
 export interface Errors {
   text1?: string;

@@ -1,24 +1,24 @@
 import React, { useState, useCallback } from 'react';
 import { debuglog } from 'Utils';
-import { ValueState } from 'Components/Bootstrap/Types';
-import InlineRadioList from 'Components/Bootstrap/InlineRadioList';
-import InlineCheckList from 'Components/Bootstrap/InlineCheckList';
-import CheckList from 'Components/Bootstrap/CheckList';
-import RadioList from 'Components/Bootstrap/RadioList';
-import Select from 'Components/Bootstrap/Select';
-import Switch from 'Components/Bootstrap/Switch';
-import TextArea from 'Components/Bootstrap/TextArea';
-import TextInput from 'Components/Bootstrap/TextInput';
+import { ValueState } from 'Framework/Views/Components/Bootstrap/Types';
+import InlineRadioList from 'Framework/Views/Components/Bootstrap/InlineRadioList';
+import InlineCheckList from 'Framework/Views/Components/Bootstrap/InlineCheckList';
+import CheckList from 'Framework/Views/Components/Bootstrap/CheckList';
+import RadioList from 'Framework/Views/Components/Bootstrap/RadioList';
+import Select from 'Framework/Views/Components/Bootstrap/Select';
+import Switch from 'Framework/Views/Components/Bootstrap/Switch';
+import TextArea from 'Framework/Views/Components/Bootstrap/TextArea';
+import TextInput from 'Framework/Views/Components/Bootstrap/TextInput';
 import FormViewModel, {
   CheckOptions,
   RadioValue,
   SelectValue,
 } from 'Apps/SimpleForm/ViewModels/FormViewModel';
 import FormUseCase from 'Apps/SimpleForm/UseCases/FormUseCase';
-import { useViewModel } from 'Bridges/ReactBridge';
+import { useViewModel } from 'Framework/Bridges/ReactBridge';
 
 interface FormProps {
-  useCase: FormUseCase<FormViewModel>;
+  useCase: FormUseCase;
   initialViewModel: FormViewModel;
   onSubmitSuccess?: (
     setViewModel: (nextViewModel: FormViewModel) => void

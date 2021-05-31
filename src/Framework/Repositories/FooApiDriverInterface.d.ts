@@ -1,4 +1,4 @@
-import {ApiResponse} from 'Repositories/Interface';
+import {ApiResponse} from './Interface';
 
 type CheckValue = 'C1' | 'C2' | 'C3' | 'C4';
 type RadioValue = 'R1' | 'R2' | 'R3';
