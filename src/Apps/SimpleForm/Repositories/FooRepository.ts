@@ -1,7 +1,7 @@
 import { FooApiDriverInterface } from 'Framework/Repositories/FooApiDriverInterface';
-import { FormViewModel } from "../ViewModels/FormViewModel";
-import {toCreateRequest} from './FormViewModelTransformer';
-import {FooRepositoryInterface} from '../UseCases/FooRepositoryInterface';
+import { FormViewModel } from '../ViewModels/FormViewModel';
+import { toCreateRequest } from './FormViewModelTransformer';
+import { FooRepositoryInterface } from '../UseCases/FooRepositoryInterface';
 
 interface CreateErrors {
   text1?: string;
@@ -21,7 +21,7 @@ export class FooRepository implements FooRepositoryInterface {
       const response = await this.#driver.create<CreateErrors>(request);
 
       return response.message;
-    } catch(e) {
+    } catch (e) {
       return e.errors;
     }
   }

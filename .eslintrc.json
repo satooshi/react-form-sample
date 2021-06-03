@@ -1,40 +1,45 @@
 {
-    "env": {
-        "browser": true,
-        "es2021": true
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": [
+    "plugin:react/recommended",
+    "airbnb",
+    "plugin:@typescript-eslint/recommended",
+    "prettier"
+  ],
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "ecmaFeatures": {
+      "jsx": true
     },
-    "extends": [
-        "plugin:react/recommended",
-        "airbnb",
-        "prettier"
+    "ecmaVersion": 12,
+    "sourceType": "module"
+  },
+  "plugins": ["react", "@typescript-eslint"],
+  "rules": {
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-use-before-define": ["error"],
+    "import/extensions": "off",
+    "import/no-default-export": "error",
+    "import/no-extraneous-dependencies": [
+      "error",
+      { "devDependencies": true, "peerDependencies": true }
     ],
-    "parser": "@typescript-eslint/parser",
-    "parserOptions": {
-        "ecmaFeatures": {
-            "jsx": true
-        },
-        "ecmaVersion": 12,
-        "sourceType": "module"
-    },
-    "plugins": [
-        "react",
-        "@typescript-eslint"
+    "import/no-unresolved": "off",
+    "import/prefer-default-export": "off",
+    "indent": ["error", 2],
+    "no-underscore-dangle": "off",
+    "no-unused-vars": "off",
+    "no-use-before-define": "off",
+    "react/jsx-filename-extension": [
+      "error",
+      { "extensions": [".tsx", ".jsx"] }
     ],
-    "rules": {
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": true, "peerDependencies": true}],
-        "react/jsx-filename-extension": ["error", { "extensions": [".tsx", ".jsx"] }],
-        "indent": ["error", 2],
-        "no-use-before-define": "off",
-        "@typescript-eslint/no-use-before-define": ["error"],
-        "import/extensions": "off",
-        "import/no-unresolved": "off",
-        "react/jsx-uses-react": "error",
-        "react/jsx-uses-vars": "error",
-        "react/prop-types": "off",
-        "no-unused-vars": "off",
-        "@typescript-eslint/no-unused-vars": "error",
-        "no-underscore-dangle": "off",
-        "import/prefer-default-export": "off",
-        "import/no-default-export": "error"
-    }
+    "react/jsx-uses-react": "error",
+    "react/jsx-uses-vars": "error",
+    "react/prop-types": "off"
+  }
 }

@@ -1,4 +1,4 @@
-import { ViewModel } from "../ViewModels/Interfaces";
+import { ViewModel } from '../ViewModels/Interfaces';
 
 export function toInt(value: string) {
   return parseInt(value, 10);
@@ -13,8 +13,12 @@ export function toNumber(value: string) {
 }
 
 /** Extracts keys if the value is true */
-export function selectTrue<T extends {[key: string]: boolean}>(obj: T): (keyof T)[] {
-  return Object.entries(obj).filter(a => a[1] === true).map(a => a[0] as keyof T);
+export function selectTrue<T extends { [key: string]: boolean }>(
+  obj: T
+): (keyof T)[] {
+  return Object.entries(obj)
+    .filter((a) => a[1] === true)
+    .map((a) => a[0] as keyof T);
 }
 
 /** Converts persistent data to view model  */

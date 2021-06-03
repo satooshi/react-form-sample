@@ -1,6 +1,6 @@
 export interface ViewModel {
   /** Returns serialized ViewModel state */
-  get serialized(): object;
+  get serialized(): Record<string, unknown>;
 
   /** Returns whether the ViewModel is valid */
   get isValid(): boolean;

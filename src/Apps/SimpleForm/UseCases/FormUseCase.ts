@@ -1,5 +1,5 @@
-import {FormViewModel} from '../ViewModels/FormViewModel';
-import {FooRepositoryInterface} from "./FooRepositoryInterface";
+import { FormViewModel } from '../ViewModels/FormViewModel';
+import { FooRepositoryInterface } from './FooRepositoryInterface';
 
 // TODO: This kind of UseCase might be unnecessary.
 export class FormUseCase {

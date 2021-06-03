@@ -1,8 +1,8 @@
-import {ApiResponse} from '../Repositories/Interfaces';
+import { ApiResponse } from '../Repositories/Interfaces';
 
 async function sendRequest<Errors, T>(method: string, url: string, data?: T) {
   const body = JSON.stringify(data);
-  const response = await fetch(url, {method, body});
+  const response = await fetch(url, { method, body });
 
   return response.json() as Promise<ApiResponse<Errors>>;
 }

@@ -2,10 +2,12 @@
 export type ApiResponse<Errors> = {
   message: string;
   errors?: Errors;
-}
+};
 
 export interface CreateDriver {
-  create: <Errors, T = {}>(data: T) => Promise<ApiResponse<Errors>>;
+  create: <Errors, T = Record<string, unknown>>(
+    data: T
+  ) => Promise<ApiResponse<Errors>>;
 }
 
 export interface UpdateDriver {

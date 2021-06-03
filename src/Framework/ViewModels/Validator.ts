@@ -1,28 +1,35 @@
 type SelectionValues = { [key: string]: boolean };
 
-const isSelectionBlank = (values: SelectionValues) => !Object.values(values).find((v) => v === true);
+const isSelectionBlank = (values: SelectionValues) =>
+  !Object.values(values).find((v) => v === true);
 
 const isTextBlank = (text: string) => text.trim().length === 0;
 
-const maxSelectionLength = (values: SelectionValues, max: number) => Object.values(values).length <= max;
+const maxSelectionLength = (values: SelectionValues, max: number) =>
+  Object.values(values).length <= max;
 
 const maxTextLength = (text: string, max: number) => text.trim().length <= max;
 
-const minSelectionLength = (values: SelectionValues, min: number) => Object.values(values).length >= min;
+const minSelectionLength = (values: SelectionValues, min: number) =>
+  Object.values(values).length >= min;
 
 const minTextLength = (text: string, min: number) => text.trim().length >= min;
 
-const rangeSelectionLength = (values: SelectionValues, min: number, max: number) => {
-  const {length} = Object.values(values);
+const rangeSelectionLength = (
+  values: SelectionValues,
+  min: number,
+  max: number
+) => {
+  const { length } = Object.values(values);
   return length >= min && length <= max;
 };
 
 const rangeTextLength = (text: string, min: number, max: number) => {
-  const {length} = text.trim();
+  const { length } = text.trim();
   return length >= min && length <= max;
 };
 
-export function isBlank(value: string | boolean | { [key:string]: boolean }) {
+export function isBlank(value: string | boolean | { [key: string]: boolean }) {
   if (typeof value === 'string') {
     return isTextBlank(value);
   }
@@ -50,7 +57,11 @@ export function maxLength(value: string | SelectionValues, max: number) {
   return maxSelectionLength(value, max);
 }
 
-export function rangeLength(value: string | SelectionValues, min: number, max: number) {
+export function rangeLength(
+  value: string | SelectionValues,
+  min: number,
+  max: number
+) {
   if (typeof value === 'string') {
     return rangeTextLength(value, min, max);
   }

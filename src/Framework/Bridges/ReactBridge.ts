@@ -1,11 +1,11 @@
-import {useState, useRef, useEffect} from 'react';
-import {ViewModel} from '../ViewModels/Interfaces';
+import { useState, useRef, useEffect } from 'react';
+import { ViewModel } from '../ViewModels/Interfaces';
 
 // const [viewModel, setViewModel] = useViewModel(new FormViewModel(initState));
 export function useViewModel<T extends ViewModel>(initialViewModel: T) {
   const [state, setState] = useState(initialViewModel.serialized);
-  const ctor = initialViewModel.constructor
-  const currentViewModel: T = new (<any>ctor)(state);
+  const ctor = initialViewModel.constructor;
+  const currentViewModel: T = new (<any>ctor)(state); // eslint-disable-line @typescript-eslint/no-explicit-any
 
   const setViewModel = (nextViewModel: T) => {
     setState(nextViewModel.serialized);
@@ -16,8 +16,8 @@ export function useViewModel<T extends ViewModel>(initialViewModel: T) {
 // Not needed
 export function useViewModelRef<T extends ViewModel>(initialViewModel: T) {
   const [state, setState] = useState(initialViewModel.serialized);
-  const ctor = initialViewModel.constructor
-  const currentViewModel: T = new (<any>ctor)(state);
+  const ctor = initialViewModel.constructor;
+  const currentViewModel: T = new (<any>ctor)(state); // eslint-disable-line @typescript-eslint/no-explicit-any
 
   const refViewModel = useRef(currentViewModel);
   useEffect(() => {
@@ -26,9 +26,9 @@ export function useViewModelRef<T extends ViewModel>(initialViewModel: T) {
 
   const setViewModel = (setter: (viewModel: T) => void) => {
     const viewModel = refViewModel.current;
-    setter(viewModel)
+    setter(viewModel);
     setState(viewModel.serialized);
   };
 
   return [refViewModel.current, setViewModel] as [T, typeof setViewModel];
-};
+}

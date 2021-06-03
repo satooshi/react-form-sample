@@ -1,4 +1,4 @@
-import { Repository } from "Framework/UseCases/Interfaces";
+import { Repository } from 'Framework/UseCases/Interfaces';
 import { FormViewModel } from '../ViewModels/FormViewModel';
 
 export interface FooRepositoryInterface extends Repository<FormViewModel> {

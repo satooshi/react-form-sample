@@ -1,4 +1,4 @@
-import { ViewModel } from "Framework/ViewModels/Interfaces";
+import { ViewModel } from 'Framework/ViewModels/Interfaces';
 
 export interface Repository<T extends ViewModel> {
   /** Persists a ViewModel to the backend API */

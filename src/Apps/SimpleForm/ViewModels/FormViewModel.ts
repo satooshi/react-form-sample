@@ -1,5 +1,5 @@
-import {ViewModel} from "Framework/ViewModels/Interfaces";
-import {isBlank} from 'Framework/ViewModels/Validator';
+import { ViewModel } from 'Framework/ViewModels/Interfaces';
+import { isBlank } from 'Framework/ViewModels/Validator';
 
 export interface Errors {
   text1?: string;
@@ -11,11 +11,11 @@ export interface Errors {
   switch?: string;
   inlineCheck?: string;
   inlineRadio?: string;
-};
+}
 
 export type RadioValue = '' | 'R1' | 'R2' | 'R3';
 export type SelectValue = '' | 'S1' | 'S2' | 'S3';
-export type MultiSelectValue = { [key in SelectValue]: boolean }
+export type MultiSelectValue = { [key in SelectValue]: boolean };
 
 export type CheckValue = 'C1' | 'C2' | 'C3' | 'C4';
 export type CheckOptions = { [key in CheckValue]: boolean };
@@ -31,7 +31,7 @@ export interface Props {
   switch: boolean;
   inlineCheck: CheckOptions;
   inlineRadio: RadioValue;
-};
+}
 
 export class FormViewModel implements ViewModel {
   #errors: Errors;
@@ -64,7 +64,7 @@ export class FormViewModel implements ViewModel {
     this.#select = props.select;
     this.#switch = props.switch;
     this.#inlineRadio = props.inlineRadio;
-    this.#inlineCheck = { ...props.inlineCheck};
+    this.#inlineCheck = { ...props.inlineCheck };
   }
 
   // Interfaces used by react bridge
@@ -84,82 +84,100 @@ export class FormViewModel implements ViewModel {
       select: this.#select,
       switch: this.#switch,
       inlineRadio: this.#inlineRadio,
-      inlineCheck: {...this.#inlineCheck},
-    }
+      inlineCheck: { ...this.#inlineCheck },
+    };
   }
 
   // Interfaces used by UI components
 
-  get text1() { return this.#text1 }
+  get text1() {
+    return this.#text1;
+  }
 
   set text1(value: string) {
-    this.#text1 = value
+    this.#text1 = value;
     this.validateText1();
   }
 
-  get text2() { return this.#text2 }
+  get text2() {
+    return this.#text2;
+  }
 
   set text2(value: string) {
-    this.#text2 = value
+    this.#text2 = value;
     this.validateText2();
   }
 
-  get textArea() { return this.#textArea }
+  get textArea() {
+    return this.#textArea;
+  }
 
   set textArea(value: string) {
-    this.#textArea = value
+    this.#textArea = value;
     this.validateTextArea();
   }
 
-  get checkList() { return this.#checkList }
+  get checkList() {
+    return this.#checkList;
+  }
 
   set checkList(value: CheckOptions) {
-    this.#checkList = {...value}
+    this.#checkList = { ...value };
     this.validateCheckList();
   }
 
   replaceCheckList(value: CheckOptions) {
-    this.#checkList = { ...this.#checkList, ...value }
+    this.#checkList = { ...this.#checkList, ...value };
     this.validateCheckList();
   }
 
-  get radioList() { return this.#radioList }
+  get radioList() {
+    return this.#radioList;
+  }
 
   set radioList(value: RadioValue) {
-    this.#radioList = value
+    this.#radioList = value;
     this.validateRadioList();
   }
 
-  get select() { return this.#select }
+  get select() {
+    return this.#select;
+  }
 
   set select(value: SelectValue) {
-    this.#select = value
+    this.#select = value;
     this.validateSelect();
   }
 
-  get switch() { return this.#switch }
+  get switch() {
+    return this.#switch;
+  }
 
   set switch(value: boolean) {
-    this.#switch = value
+    this.#switch = value;
     this.validateSwitch();
   }
 
-  get inlineRadio() { return this.#inlineRadio }
+  get inlineRadio() {
+    return this.#inlineRadio;
+  }
 
   set inlineRadio(value: RadioValue) {
-    this.#inlineRadio = value
+    this.#inlineRadio = value;
     this.validateInlineRadio();
   }
 
-  get inlineCheck() { return this.#inlineCheck }
+  get inlineCheck() {
+    return this.#inlineCheck;
+  }
 
   set inlineCheck(value: CheckOptions) {
-    this.#inlineCheck = {...value}
+    this.#inlineCheck = { ...value };
     this.validateInlineCheck();
   }
 
   replaceInlineCheck(value: CheckOptions) {
-    this.#inlineCheck = { ...this.#inlineCheck, ...value }
+    this.#inlineCheck = { ...this.#inlineCheck, ...value };
     this.validateInlineCheck();
   }
 
@@ -170,7 +188,7 @@ export class FormViewModel implements ViewModel {
    * @inheritdoc
    */
   get errors() {
-    return {...this.#errors};
+    return { ...this.#errors };
   }
 
   /**
@@ -180,7 +198,7 @@ export class FormViewModel implements ViewModel {
   get isValid() {
     this.validate();
 
-    return Object.keys(this.#errors).length === 0
+    return Object.keys(this.#errors).length === 0;
   }
 
   private validate() {
