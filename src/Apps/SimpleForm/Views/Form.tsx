@@ -1,20 +1,21 @@
 import React, { useState, useCallback } from 'react';
 import { debuglog } from 'Utils';
 import { ValueState } from 'Framework/Views/Components/Bootstrap/Types';
-import InlineRadioList from 'Framework/Views/Components/Bootstrap/InlineRadioList';
-import InlineCheckList from 'Framework/Views/Components/Bootstrap/InlineCheckList';
-import CheckList from 'Framework/Views/Components/Bootstrap/CheckList';
-import RadioList from 'Framework/Views/Components/Bootstrap/RadioList';
-import Select from 'Framework/Views/Components/Bootstrap/Select';
-import Switch from 'Framework/Views/Components/Bootstrap/Switch';
-import TextArea from 'Framework/Views/Components/Bootstrap/TextArea';
-import TextInput from 'Framework/Views/Components/Bootstrap/TextInput';
-import FormViewModel, {
+import { InlineRadioList } from 'Framework/Views/Components/Bootstrap/InlineRadioList';
+import { InlineCheckList } from 'Framework/Views/Components/Bootstrap/InlineCheckList';
+import { CheckList } from 'Framework/Views/Components/Bootstrap/CheckList';
+import { RadioList } from 'Framework/Views/Components/Bootstrap/RadioList';
+import { Select } from 'Framework/Views/Components/Bootstrap/Select';
+import { Switch } from 'Framework/Views/Components/Bootstrap/Switch';
+import { TextArea } from 'Framework/Views/Components/Bootstrap/TextArea';
+import { TextInput } from 'Framework/Views/Components/Bootstrap/TextInput';
+import {
+  FormViewModel,
   CheckOptions,
   RadioValue,
   SelectValue,
 } from 'Apps/SimpleForm/ViewModels/FormViewModel';
-import FormUseCase from 'Apps/SimpleForm/UseCases/FormUseCase';
+import { FormUseCase } from 'Apps/SimpleForm/UseCases/FormUseCase';
 import { useViewModel } from 'Framework/Bridges/ReactBridge';
 
 interface FormProps {
@@ -25,7 +26,7 @@ interface FormProps {
   ) => void;
 }
 
-const Form: React.FC<FormProps> = ({
+export const Form: React.FC<FormProps> = ({
   useCase,
   initialViewModel,
   onSubmitSuccess,
@@ -223,5 +224,3 @@ const Form: React.FC<FormProps> = ({
     </form>
   );
 };
-
-export default Form;

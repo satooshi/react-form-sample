@@ -33,7 +33,7 @@ export interface Props {
   inlineRadio: RadioValue;
 };
 
-export default class FormViewModel implements ViewModel {
+export class FormViewModel implements ViewModel {
   #errors: Errors;
 
   #text1: string;

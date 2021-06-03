@@ -6,7 +6,7 @@ interface Props {
   labelText: string;
 }
 
-const FormLabel: React.FC<Props> = ({ id, labelText }) => {
+export const FormLabel: React.FC<Props> = React.memo(({ id, labelText }) => {
   debuglog('render FormLabel', { id, labelText });
 
   return (
@@ -14,6 +14,4 @@ const FormLabel: React.FC<Props> = ({ id, labelText }) => {
       {labelText}:
     </label>
   );
-};
-
-export default React.memo(FormLabel);
+});

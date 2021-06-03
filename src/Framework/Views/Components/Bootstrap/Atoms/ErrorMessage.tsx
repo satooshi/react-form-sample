@@ -5,9 +5,7 @@ type Props = {
   error?: string;
 };
 
-const ErrorMessage: React.FC<Props> = ({ error }) => {
+export const ErrorMessage: React.FC<Props> = React.memo(({ error }) => {
   debuglog('render ErrorMessage', { error });
   return <>{error ? <div className="invalid-feedback">{error}</div> : null}</>;
-};
-
-export default React.memo(ErrorMessage);
+});

@@ -1,4 +1,4 @@
-export default class TypeValidator {
+export class TypeValidator {
   static isInteger(value: string) {
     return /^(\d+)$/.test(value);
   }

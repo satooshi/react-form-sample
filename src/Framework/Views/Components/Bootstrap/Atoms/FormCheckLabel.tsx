@@ -6,14 +6,14 @@ interface Props {
   labelText: string;
 }
 
-const FormCheckLabel: React.FC<Props> = ({ id, labelText }) => {
-  debuglog('render FormCheckLabel', { id, labelText });
+export const FormCheckLabel: React.FC<Props> = React.memo(
+  ({ id, labelText }) => {
+    debuglog('render FormCheckLabel', { id, labelText });
 
-  return (
-    <label className="form-check-label" htmlFor={id}>
-      {labelText}
-    </label>
-  );
-};
-
-export default React.memo(FormCheckLabel);
+    return (
+      <label className="form-check-label" htmlFor={id}>
+        {labelText}
+      </label>
+    );
+  }
+);

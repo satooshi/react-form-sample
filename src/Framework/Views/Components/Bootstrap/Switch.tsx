@@ -1,7 +1,7 @@
 import React from 'react';
 import { debuglog } from 'Utils';
-import ErrorMessage from './Atoms/ErrorMessage';
-import FormCheckLabel from './Atoms/FormCheckLabel';
+import { ErrorMessage } from './Atoms/ErrorMessage';
+import { FormCheckLabel } from './Atoms/FormCheckLabel';
 
 type Props = {
   checked: boolean;
@@ -12,34 +12,27 @@ type Props = {
   value: string;
 };
 
-const Switch: React.FC<Props> = ({
-  checked,
-  error,
-  id,
-  labelText,
-  onChange,
-  value,
-}) => {
-  debuglog('render Switch', { id, value });
+export const Switch: React.FC<Props> = React.memo(
+  ({ checked, error, id, labelText, onChange, value }) => {
+    debuglog('render Switch', { id, value });
 
-  function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
-    onChange(event.target.checked);
+    function handleChange(event: React.ChangeEvent<HTMLInputElement>) {
+      onChange(event.target.checked);
+    }
+
+    return (
+      <div className="form-check form-switch">
+        <input
+          checked={checked}
+          className={error ? 'form-check-input is-invalid' : 'form-check-input'}
+          id={id}
+          onChange={handleChange}
+          type="checkbox"
+          value={value}
+        />
+        <FormCheckLabel id={id} labelText={labelText} />
+        <ErrorMessage error={error} />
+      </div>
+    );
   }
-
-  return (
-    <div className="form-check form-switch">
-      <input
-        checked={checked}
-        className={error ? 'form-check-input is-invalid' : 'form-check-input'}
-        id={id}
-        onChange={handleChange}
-        type="checkbox"
-        value={value}
-      />
-      <FormCheckLabel id={id} labelText={labelText} />
-      <ErrorMessage error={error} />
-    </div>
-  );
-};
-
-export default React.memo(Switch);
+);

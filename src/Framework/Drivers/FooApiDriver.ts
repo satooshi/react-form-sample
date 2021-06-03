@@ -1,8 +1,8 @@
 import {FooApiDriverInterface, CreateRequest, UpdateRequest, DeleteRequest} from 'Framework/Repositories/FooApiDriverInterface';
 import { debuglog } from 'Utils';
-import ApiDriver from "./ApiDriver";
+import {ApiDriver} from "./ApiDriver";
 
-export default class FooApiDriver extends ApiDriver implements FooApiDriverInterface {
+export class FooApiDriver extends ApiDriver implements FooApiDriverInterface {
   private url = 'http://localhost';
 
   create<E>(data: CreateRequest) {

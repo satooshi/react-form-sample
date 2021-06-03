@@ -32,5 +32,3 @@ export function useViewModelRef<T extends ViewModel>(initialViewModel: T) {
 
   return [refViewModel.current, setViewModel] as [T, typeof setViewModel];
 };
-
-export default {useViewModelRef};

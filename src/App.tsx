@@ -1,10 +1,10 @@
 import React from 'react';
 import { debuglog } from 'Utils';
-import FormViewModel, { Props } from 'Apps/SimpleForm/ViewModels/FormViewModel';
-import FormUseCase from 'Apps/SimpleForm/UseCases/FormUseCase';
-import FooApiDriver from 'Framework/Drivers/FooApiDriver';
-import FooRepository from 'Apps/SimpleForm/Repositories/FooRepository';
-import SimpleForm from 'Apps/SimpleForm/Views/Form';
+import { FormViewModel, Props } from 'Apps/SimpleForm/ViewModels/FormViewModel';
+import { FormUseCase } from 'Apps/SimpleForm/UseCases/FormUseCase';
+import { FooApiDriver } from 'Framework/Drivers/FooApiDriver';
+import { FooRepository } from 'Apps/SimpleForm/Repositories/FooRepository';
+import { Form as SimpleForm } from 'Apps/SimpleForm/Views/Form';
 // import logo from 'logo.svg'; // eslint-disable-line @typescript-eslint/no-unused-vars
 // import 'App.css';
 
@@ -30,7 +30,7 @@ const onSubmitSuccess = (callback: (v: FormViewModel) => void) => {
   callback(new FormViewModel(initState));
 };
 
-function App() {
+export function App() {
   return (
     <div className="App">
       <div className="container">
@@ -48,5 +48,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

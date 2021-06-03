@@ -12,28 +12,20 @@ interface Props {
   value: Value;
 }
 
-const FormCheckInput: React.FC<Props> = ({
-  checked,
-  error,
-  id,
-  name,
-  onChange,
-  type,
-  value,
-}) => {
-  debuglog('render FormCheckInput', { id, value });
+export const FormCheckInput: React.FC<Props> = React.memo(
+  ({ checked, error, id, name, onChange, type, value }) => {
+    debuglog('render FormCheckInput', { id, value });
 
-  return (
-    <input
-      className={error ? 'form-check-input is-invalid' : 'form-check-input'}
-      type={type}
-      id={id}
-      name={name}
-      checked={checked}
-      value={value}
-      onChange={onChange}
-    />
-  );
-};
-
-export default React.memo(FormCheckInput);
+    return (
+      <input
+        className={error ? 'form-check-input is-invalid' : 'form-check-input'}
+        type={type}
+        id={id}
+        name={name}
+        checked={checked}
+        value={value}
+        onChange={onChange}
+      />
+    );
+  }
+);

@@ -2,7 +2,7 @@
 
 import {ApiResponse} from '../Repositories/Interfaces';
 
-export default class ApiDriver {
+export class ApiDriver {
   protected async postRequest<Errors, T>(url: string, data?: T) {
     return this.sendRequest<Errors, T>('POST', url, data);
   }
