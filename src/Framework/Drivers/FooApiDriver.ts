@@ -1,20 +1,20 @@
-import {FooApiDriverInterface, CreateRequest, UpdateRequest, DeleteRequest} from 'Framework/Repositories/FooApiDriverInterface';
+import { FooApiDriverInterface, CreateRequest, UpdateRequest, DeleteRequest } from 'Framework/Repositories/FooApiDriverInterface';
 import { debuglog } from 'Utils';
-import {ApiDriver} from "./ApiDriver";
+import { postRequest, putRequest, deleteRequest } from "./ApiDriver";
 
-export class FooApiDriver extends ApiDriver implements FooApiDriverInterface {
+export class FooApiDriver implements FooApiDriverInterface {
   private url = 'http://localhost';
 
   create<E>(data: CreateRequest) {
     debuglog('Sending create data', {data});
-    return this.postRequest<E, CreateRequest>(this.url, data);
+    return postRequest<E, CreateRequest>(this.url, data);
   }
 
   update<E>(data: UpdateRequest) {
-    return this.putRequest<E, UpdateRequest>(this.url, data);
+    return putRequest<E, UpdateRequest>(this.url, data);
   }
 
   delete<E>(data: DeleteRequest) {
-    return this.deleteRequest<E, DeleteRequest>(this.url, data);
+    return deleteRequest<E, DeleteRequest>(this.url, data);
   }
 }

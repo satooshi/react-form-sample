@@ -1,28 +1,24 @@
-/* eslint-disable class-methods-use-this */
-
 import {ApiResponse} from '../Repositories/Interfaces';
 
-export class ApiDriver {
-  protected async postRequest<Errors, T>(url: string, data?: T) {
-    return this.sendRequest<Errors, T>('POST', url, data);
-  }
+async function sendRequest<Errors, T>(method: string, url: string, data?: T) {
+  const body = JSON.stringify(data);
+  const response = await fetch(url, {method, body});
 
-  protected async putRequest<Errors, T>(url: string, data?: T) {
-    return this.sendRequest<Errors, T>('PUT', url, data);
-  }
+  return response.json() as Promise<ApiResponse<Errors>>;
+}
 
-  protected async deleteRequest<Errors, T>(url: string, data?: T) {
-    return this.sendRequest<Errors, T>('DELETE', url, data);
-  }
+export async function postRequest<Errors, T>(url: string, data?: T) {
+  return sendRequest<Errors, T>('POST', url, data);
+}
 
-  protected async getRequest<Errors, T>(url: string, data?: T) {
-    return this.sendRequest<Errors, T>('GET', url, data);
-  }
+export async function putRequest<Errors, T>(url: string, data?: T) {
+  return sendRequest<Errors, T>('PUT', url, data);
+}
 
-  private async sendRequest<Errors, T>(method: string, url: string, data?: T) {
-    const body = JSON.stringify(data);
-    const response = await fetch(url, {method, body});
+export async function deleteRequest<Errors, T>(url: string, data?: T) {
+  return sendRequest<Errors, T>('DELETE', url, data);
+}
 
-    return response.json() as Promise<ApiResponse<Errors>>;
-  }
+export async function getRequest<Errors, T>(url: string, data?: T) {
+  return sendRequest<Errors, T>('GET', url, data);
 }
