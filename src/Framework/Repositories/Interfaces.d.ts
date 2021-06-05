@@ -1,8 +1,8 @@
 // Repository interfaces
-export type ApiResponse<Errors> = {
+export interface ApiResponse<Errors> {
   errors?: Errors;
   message: string;
-};
+}
 
 export interface CreateDriver {
   create: <Errors, T = Record<string, unknown>>(
