@@ -2,9 +2,15 @@ import { ApiResponse } from '../Repositories/Interfaces';
 
 async function sendRequest<Errors, T>(method: string, url: string, data?: T) {
   const body = JSON.stringify(data);
-  const response = await fetch(url, { method, body });
 
-  return response.json() as Promise<ApiResponse<Errors>>;
+  try {
+    const response = await fetch(url, { body, method });
+
+    return response.json() as Promise<ApiResponse<Errors>>;
+  } catch (e) {
+    console.error(e);
+    return {} as Promise<ApiResponse<Errors>>;
+  }
 }
 
 export async function postRequest<Errors, T>(url: string, data?: T) {

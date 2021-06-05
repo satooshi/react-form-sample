@@ -1,5 +1,5 @@
-import React from 'react';
 import { debuglog } from 'Utils';
+import React from 'react';
 import { ErrorMessage } from './Atoms/ErrorMessage';
 import { FormLabel } from './Atoms/FormLabel';
 
@@ -23,10 +23,10 @@ export const TextInput: React.FC<Props> = React.memo(
       <>
         <FormLabel id={id} labelText={labelText} />
         <input
-          type="input"
-          id={id}
           className={error ? 'form-control is-invalid' : 'form-control'}
+          id={id}
           onChange={handleChange}
+          type="input"
           value={value}
         />
         <ErrorMessage error={error} />

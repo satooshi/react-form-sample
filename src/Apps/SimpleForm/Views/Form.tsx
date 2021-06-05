@@ -1,32 +1,32 @@
-import React, { useState, useCallback } from 'react';
-import { debuglog } from 'Utils';
+import { FormUseCase } from 'Apps/SimpleForm/UseCases/FormUseCase';
 import {
-  TextInput,
-  TextArea,
-  Switch,
-  Select,
-  RadioList,
-  CheckList,
-  InlineCheckList,
-  InlineRadioList,
-  ValueState,
-  PasswordInput,
-} from 'Framework/Views/Components/Bootstrap';
-import {
-  FormViewModel,
   CheckOptions,
+  FormViewModel,
   RadioValue,
   SelectValue,
 } from 'Apps/SimpleForm/ViewModels/FormViewModel';
-import { FormUseCase } from 'Apps/SimpleForm/UseCases/FormUseCase';
 import { useViewModel } from 'Framework/Bridges/ReactBridge';
+import {
+  CheckList,
+  InlineCheckList,
+  InlineRadioList,
+  PasswordInput,
+  RadioList,
+  Select,
+  Switch,
+  TextArea,
+  TextInput,
+  ValueState,
+} from 'Framework/Views/Components/Bootstrap';
+import { debuglog } from 'Utils';
+import React, { useCallback, useState } from 'react';
 
 interface FormProps {
-  useCase: FormUseCase;
   initialViewModel: FormViewModel;
   onSubmitSuccess?: (
     setViewModel: (nextViewModel: FormViewModel) => void
   ) => void;
+  useCase: FormUseCase;
 }
 
 export const Form: React.FC<FormProps> = ({
@@ -36,7 +36,7 @@ export const Form: React.FC<FormProps> = ({
 }) => {
   const [submitting, setSubmitting] = useState(false);
   const [viewModel, setViewModel] = useViewModel(initialViewModel);
-  debuglog('render Form', { viewModel, submitting });
+  debuglog('render Form', { submitting, viewModel });
 
   const handleTextChange1 = useCallback((value: string) => {
     viewModel.text1 = value;
@@ -112,129 +112,129 @@ export const Form: React.FC<FormProps> = ({
     <form noValidate>
       <div className="mb-3">
         <TextInput
+          error={viewModel.errors.text1}
           id="text1"
           labelText="Text1"
-          value={viewModel.text1}
           onChange={handleTextChange1}
-          error={viewModel.errors.text1}
+          value={viewModel.text1}
         />
       </div>
       <div className="mb-3">
         <TextInput
+          error={viewModel.errors.text2}
           id="text2"
           labelText="Text2"
-          value={viewModel.text2}
           onChange={handleTextChange2}
-          error={viewModel.errors.text2}
+          value={viewModel.text2}
         />
       </div>
       <div className="mb-3">
         <PasswordInput
+          error={viewModel.errors.password}
           id="password"
           labelText="Password"
-          value={viewModel.password}
           onChange={handlePasswordChange}
-          error={viewModel.errors.password}
+          value={viewModel.password}
         />
       </div>
       <div className="mb-3">
         <TextArea
+          error={viewModel.errors.textArea}
           id="text-area"
           labelText="Text Area"
-          value={viewModel.textArea}
           onChange={handleTextAreaChange}
-          error={viewModel.errors.textArea}
+          value={viewModel.textArea}
         />
       </div>
       <div className="mb-3">
         <Select
+          error={viewModel.errors.select}
           id="select"
           labelText="Select"
-          value={viewModel.select}
           onChange={handleSelectChange}
-          error={viewModel.errors.select}
           options={[
             { label: 'Please select', value: '' },
             { label: 'option1', value: 'S1' },
             { label: 'option2', value: 'S2' },
             { label: 'option3', value: 'S3' },
           ]}
+          value={viewModel.select}
         />
       </div>
       <div className="mb-3">
         <CheckList
+          error={viewModel.errors.checkList}
           id="check_list"
           labelText="Check List:"
-          values={viewModel.checkList}
           onChange={handleCheckListChange}
-          error={viewModel.errors.checkList}
           options={[
             { label: 'check1', value: 'C1' },
             { label: 'check2', value: 'C2' },
             { label: 'check3', value: 'C3' },
             { label: 'check4', value: 'C4' },
           ]}
+          values={viewModel.checkList}
         />
       </div>
       <div className="mb-3">
         <RadioList
+          error={viewModel.errors.radioList}
           id="radio-list"
           labelText="Radio List:"
-          value={viewModel.radioList}
           onChange={handleRadioListChange}
-          error={viewModel.errors.radioList}
           options={[
             { label: 'radio1', value: 'R1' },
             { label: 'radio2', value: 'R2' },
             { label: 'radio3', value: 'R3' },
           ]}
+          value={viewModel.radioList}
         />
       </div>
       <div className="mb-3">
         <Switch
+          checked={viewModel.switch}
+          error={viewModel.errors.switch}
           id="switch"
           labelText="Switch here"
-          value="nyan"
-          checked={viewModel.switch}
           onChange={handleSwitchChange}
-          error={viewModel.errors.switch}
+          value="nyan"
         />
       </div>
       <div className="mb-3">
         <InlineCheckList
+          error={viewModel.errors.inlineCheck}
           id="inline-check"
           labelText="Inline check list:"
-          values={viewModel.inlineCheck}
           onChange={handleInlineCheckChange}
-          error={viewModel.errors.inlineCheck}
           options={[
             { label: 'check1', value: 'C1' },
             { label: 'check2', value: 'C2' },
             { label: 'check3', value: 'C3' },
             { label: 'check4', value: 'C4' },
           ]}
+          values={viewModel.inlineCheck}
         />
       </div>
       <div className="mb-3">
         <InlineRadioList
+          error={viewModel.errors.inlineRadio}
           id="inline-radio"
           labelText="Inline radio list:"
-          value={viewModel.inlineRadio}
           onChange={handleInlineRadioChange}
-          error={viewModel.errors.inlineRadio}
           options={[
             { label: 'radio1', value: 'R1' },
             { label: 'radio2', value: 'R2' },
             { label: 'radio3', value: 'R3' },
           ]}
+          value={viewModel.inlineRadio}
         />
       </div>
 
       <button
-        type="submit"
         className="btn btn-primary"
-        onClick={handleSubmit}
         disabled={submitting}
+        onClick={handleSubmit}
+        type="submit"
       >
         submit
       </button>

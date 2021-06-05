@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useCallback } from 'react';
 import { debuglog } from 'Utils';
+import React, { ChangeEvent, useCallback } from 'react';
 import { ErrorMessage } from './Atoms/ErrorMessage';
-import { FormCheckLabel } from './Atoms/FormCheckLabel';
 import { FormCheckInput } from './Atoms/FormCheckInput';
+import { FormCheckLabel } from './Atoms/FormCheckLabel';
 import { Option, ValueState } from './Types';
 
 type Props = {
@@ -10,8 +10,8 @@ type Props = {
   id: string;
   labelText: string;
   onChange: (value: ValueState) => void;
-  values: ValueState;
   options: Option[];
+  values: ValueState;
 };
 
 const propsAreEqual = (
@@ -41,21 +41,21 @@ export const InlineCheckList: React.FC<Props> = React.memo(
         <span className="form-check-inline">{labelText}</span>
         {options.map((option) => (
           <div
+            key={`${id}-${option.value}`}
             className={
               error
                 ? 'form-check form-check-inline is-invalid'
                 : 'form-check form-check-inline'
             }
-            key={`${id}-${option.value}`}
           >
             <FormCheckInput
+              checked={values[option.value] === true}
               error={error}
               id={`${id}-${option.value}`}
               name={`${id}-${option.value}`}
-              type="checkbox"
-              checked={values[option.value] === true}
-              value={option.value}
               onChange={handleChange}
+              type="checkbox"
+              value={option.value}
             />
             <FormCheckLabel
               id={`${id}-${option.value}`}

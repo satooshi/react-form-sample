@@ -1,7 +1,7 @@
 // Repository interfaces
 export type ApiResponse<Errors> = {
-  message: string;
   errors?: Errors;
+  message: string;
 };
 
 export interface CreateDriver {

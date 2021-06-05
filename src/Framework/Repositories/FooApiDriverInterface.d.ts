@@ -5,15 +5,15 @@ type RadioValue = 'R1' | 'R2' | 'R3';
 type SelectValue = 'S1' | 'S2' | 'S3';
 
 export interface CreateRequest {
-  text1: string;
-  text2: string;
-  textArea: string;
   checkList: CheckValue[];
+  inlineCheck: CheckValue[];
+  inlineRadio: RadioValue;
   radioList: RadioValue;
   select: SelectValue;
   switch: boolean;
-  inlineRadio: RadioValue;
-  inlineCheck: CheckValue[];
+  text1: string;
+  text2: string;
+  textArea: string;
 }
 
 export interface UpdateRequest extends Partial<CreateRequest> {

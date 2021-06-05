@@ -1,8 +1,8 @@
-import React, { ChangeEvent, useCallback } from 'react';
 import { debuglog } from 'Utils';
+import React, { ChangeEvent, useCallback } from 'react';
 import { ErrorMessage } from './Atoms/ErrorMessage';
-import { FormCheckLabel } from './Atoms/FormCheckLabel';
 import { FormCheckInput } from './Atoms/FormCheckInput';
+import { FormCheckLabel } from './Atoms/FormCheckLabel';
 import { Option, Value } from './Types';
 
 type Props = {
@@ -39,12 +39,12 @@ export const InlineRadioList: React.FC<Props> = React.memo(
         <span className="form-check-inline">{labelText}</span>
         {options.map((option) => (
           <div
+            key={`${id}-${option.value}`}
             className={
               error
                 ? 'form-check form-check-inline is-invalid'
                 : 'form-check form-check-inline'
             }
-            key={`${id}-${option.value}`}
           >
             <FormCheckInput
               checked={option.value === value}

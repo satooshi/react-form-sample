@@ -1,7 +1,7 @@
 import { FooApiDriverInterface } from 'Framework/Repositories/FooApiDriverInterface';
+import { FooRepositoryInterface } from '../UseCases/FooRepositoryInterface';
 import { FormViewModel } from '../ViewModels/FormViewModel';
 import { toCreateRequest } from './FormViewModelTransformer';
-import { FooRepositoryInterface } from '../UseCases/FooRepositoryInterface';
 
 interface CreateErrors {
   text1?: string;

@@ -1,5 +1,5 @@
-import React from 'react';
 import { debuglog } from 'Utils';
+import React from 'react';
 import { Value } from '../Types';
 
 interface Props {
@@ -18,13 +18,13 @@ export const FormCheckInput: React.FC<Props> = React.memo(
 
     return (
       <input
+        checked={checked}
         className={error ? 'form-check-input is-invalid' : 'form-check-input'}
-        type={type}
         id={id}
         name={name}
-        checked={checked}
-        value={value}
         onChange={onChange}
+        type={type}
+        value={value}
       />
     );
   }

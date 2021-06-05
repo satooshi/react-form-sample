@@ -1,10 +1,10 @@
-import React from 'react';
-import { debuglog } from 'Utils';
-import { FormViewModel, Props } from 'Apps/SimpleForm/ViewModels/FormViewModel';
-import { FormUseCase } from 'Apps/SimpleForm/UseCases/FormUseCase';
-import { FooApiDriver } from 'Framework/Drivers/FooApiDriver';
 import { FooRepository } from 'Apps/SimpleForm/Repositories/FooRepository';
+import { FormUseCase } from 'Apps/SimpleForm/UseCases/FormUseCase';
+import { FormViewModel, Props } from 'Apps/SimpleForm/ViewModels/FormViewModel';
 import { Form as SimpleForm } from 'Apps/SimpleForm/Views/Form';
+import { FooApiDriver } from 'Framework/Drivers/FooApiDriver';
+import { debuglog } from 'Utils';
+import React from 'react';
 // import logo from 'logo.svg'; // eslint-disable-line @typescript-eslint/no-unused-vars
 // import 'App.css';
 
@@ -14,16 +14,16 @@ const formUseCase = new FormUseCase(fooRepository);
 debuglog('Wired', { formUseCase });
 
 const initState: Props = {
-  text1: '',
-  text2: '',
-  password: '',
-  textArea: '',
   checkList: { C1: false, C2: false, C3: false, C4: false },
+  inlineCheck: { C1: false, C2: false, C3: false, C4: false },
+  inlineRadio: '',
+  password: '',
   radioList: '',
   select: '',
   switch: false,
-  inlineCheck: { C1: false, C2: false, C3: false, C4: false },
-  inlineRadio: '',
+  text1: '',
+  text2: '',
+  textArea: '',
 };
 const viewModel = new FormViewModel(initState);
 
@@ -39,9 +39,9 @@ export function App() {
           <div className="col-md-6">
             <h2>Simple form</h2>
             <SimpleForm
-              useCase={formUseCase}
               initialViewModel={viewModel}
               onSubmitSuccess={onSubmitSuccess}
+              useCase={formUseCase}
             />
           </div>
         </div>

@@ -1,14 +1,14 @@
 import {
-  FooApiDriverInterface,
   CreateRequest,
-  UpdateRequest,
   DeleteRequest,
+  FooApiDriverInterface,
+  UpdateRequest,
 } from 'Framework/Repositories/FooApiDriverInterface';
 import { debuglog } from 'Utils';
-import { postRequest, putRequest, deleteRequest } from './ApiDriver';
+import { deleteRequest, postRequest, putRequest } from './ApiDriver';
 
 export class FooApiDriver implements FooApiDriverInterface {
-  private url = 'http://localhost';
+  private url = 'http://localhost:3000';
 
   create<E>(data: CreateRequest) {
     debuglog('Sending create data', { data });

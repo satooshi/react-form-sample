@@ -1,5 +1,5 @@
-import React from 'react';
 import { debuglog } from 'Utils';
+import React from 'react';
 import { ErrorMessage } from './Atoms/ErrorMessage';
 import { FormLabel } from './Atoms/FormLabel';
 
@@ -23,9 +23,9 @@ export const TextArea: React.FC<Props> = React.memo(
       <>
         <FormLabel id={id} labelText={labelText} />
         <textarea
+          className={error ? 'form-control is-invalid' : 'form-control'}
           id={id}
           onChange={handleChange}
-          className={error ? 'form-control is-invalid' : 'form-control'}
           value={value}
         />
         <ErrorMessage error={error} />

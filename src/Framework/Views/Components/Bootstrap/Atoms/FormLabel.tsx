@@ -1,5 +1,5 @@
-import React from 'react';
 import { debuglog } from 'Utils';
+import React from 'react';
 
 interface Props {
   id: string;

@@ -19,7 +19,12 @@
     "sourceType": "module",
     "project": ["./tsconfig.json"]
   },
-  "plugins": ["react", "@typescript-eslint"],
+  "plugins": [
+    "react",
+    "@typescript-eslint",
+    "typescript-sort-keys",
+    "sort-keys-fix"
+  ],
   "rules": {
     "@typescript-eslint/explicit-module-boundary-types": "off",
     "@typescript-eslint/no-unused-vars": "error",
@@ -36,12 +41,17 @@
     "no-underscore-dangle": "off",
     "no-unused-vars": "off",
     "no-use-before-define": "off",
+    "sort-keys-fix/sort-keys-fix": ["error", "asc"],
+    "import/order": ["error", { "alphabetize": { "order": "asc" } }],
     "react/jsx-filename-extension": [
       "error",
       { "extensions": [".tsx", ".jsx"] }
     ],
     "react/jsx-uses-react": "error",
     "react/jsx-uses-vars": "error",
-    "react/prop-types": "off"
+    "react/jsx-sort-props": "error",
+    "react/prop-types": "off",
+    "typescript-sort-keys/interface": "error",
+    "typescript-sort-keys/string-enum": "error"
   }
 }

@@ -2,16 +2,16 @@ import { ViewModel } from 'Framework/ViewModels/Interfaces';
 import { isBlank } from 'Framework/ViewModels/Validator';
 
 export interface Errors {
-  text1?: string;
-  text2?: string;
-  password?: string;
-  textArea?: string;
   checkList?: string;
+  inlineCheck?: string;
+  inlineRadio?: string;
+  password?: string;
   radioList?: string;
   select?: string;
   switch?: string;
-  inlineCheck?: string;
-  inlineRadio?: string;
+  text1?: string;
+  text2?: string;
+  textArea?: string;
 }
 
 export type RadioValue = '' | 'R1' | 'R2' | 'R3';
@@ -22,17 +22,17 @@ export type CheckValue = 'C1' | 'C2' | 'C3' | 'C4';
 export type CheckOptions = { [key in CheckValue]: boolean };
 
 export interface Props {
-  errors?: Errors;
-  text1: string;
-  text2: string;
-  password: string;
-  textArea: string;
   checkList: CheckOptions;
+  errors?: Errors;
+  inlineCheck: CheckOptions;
+  inlineRadio: RadioValue;
+  password: string;
   radioList: RadioValue;
   select: SelectValue;
   switch: boolean;
-  inlineCheck: CheckOptions;
-  inlineRadio: RadioValue;
+  text1: string;
+  text2: string;
+  textArea: string;
 }
 
 export class FormViewModel implements ViewModel {
@@ -80,17 +80,17 @@ export class FormViewModel implements ViewModel {
    */
   get serialized() {
     return {
-      errors: this.errors,
-      text1: this.#text1,
-      text2: this.#text2,
-      password: this.#password,
-      textArea: this.#textArea,
       checkList: this.#checkList,
+      errors: this.errors,
+      inlineCheck: { ...this.#inlineCheck },
+      inlineRadio: this.#inlineRadio,
+      password: this.#password,
       radioList: this.#radioList,
       select: this.#select,
       switch: this.#switch,
-      inlineRadio: this.#inlineRadio,
-      inlineCheck: { ...this.#inlineCheck },
+      text1: this.#text1,
+      text2: this.#text2,
+      textArea: this.#textArea,
     };
   }
 
