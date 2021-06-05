@@ -4,6 +4,7 @@ import { isBlank } from 'Framework/ViewModels/Validator';
 export interface Errors {
   text1?: string;
   text2?: string;
+  password?: string;
   textArea?: string;
   checkList?: string;
   radioList?: string;
@@ -24,6 +25,7 @@ export interface Props {
   errors?: Errors;
   text1: string;
   text2: string;
+  password: string;
   textArea: string;
   checkList: CheckOptions;
   radioList: RadioValue;
@@ -39,6 +41,8 @@ export class FormViewModel implements ViewModel {
   #text1: string;
 
   #text2: string;
+
+  #password: string;
 
   #textArea: string;
 
@@ -58,6 +62,7 @@ export class FormViewModel implements ViewModel {
     this.#errors = props.errors || {};
     this.#text1 = props.text1;
     this.#text2 = props.text2;
+    this.#password = props.password;
     this.#textArea = props.textArea;
     this.#checkList = props.checkList;
     this.#radioList = props.radioList;
@@ -78,6 +83,7 @@ export class FormViewModel implements ViewModel {
       errors: this.errors,
       text1: this.#text1,
       text2: this.#text2,
+      password: this.#password,
       textArea: this.#textArea,
       checkList: this.#checkList,
       radioList: this.#radioList,
@@ -106,6 +112,15 @@ export class FormViewModel implements ViewModel {
   set text2(value: string) {
     this.#text2 = value;
     this.validateText2();
+  }
+
+  get password() {
+    return this.#password;
+  }
+
+  set password(value: string) {
+    this.#password = value;
+    this.validatePassword();
   }
 
   get textArea() {
@@ -206,6 +221,7 @@ export class FormViewModel implements ViewModel {
 
     this.validateText1();
     this.validateText2();
+    this.validatePassword();
     this.validateTextArea();
     this.validateCheckList();
     this.validateRadioList();
@@ -233,6 +249,15 @@ export class FormViewModel implements ViewModel {
     }
 
     delete this.#errors.text2;
+  }
+
+  private validatePassword() {
+    if (isBlank(this.#password)) {
+      this.#errors.password = 'Required';
+      return;
+    }
+
+    delete this.#errors.password;
   }
 
   private validateTextArea() {

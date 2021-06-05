@@ -1,14 +1,17 @@
 import React, { useState, useCallback } from 'react';
 import { debuglog } from 'Utils';
-import { ValueState } from 'Framework/Views/Components/Bootstrap/Types';
-import { InlineRadioList } from 'Framework/Views/Components/Bootstrap/InlineRadioList';
-import { InlineCheckList } from 'Framework/Views/Components/Bootstrap/InlineCheckList';
-import { CheckList } from 'Framework/Views/Components/Bootstrap/CheckList';
-import { RadioList } from 'Framework/Views/Components/Bootstrap/RadioList';
-import { Select } from 'Framework/Views/Components/Bootstrap/Select';
-import { Switch } from 'Framework/Views/Components/Bootstrap/Switch';
-import { TextArea } from 'Framework/Views/Components/Bootstrap/TextArea';
-import { TextInput } from 'Framework/Views/Components/Bootstrap/TextInput';
+import {
+  TextInput,
+  TextArea,
+  Switch,
+  Select,
+  RadioList,
+  CheckList,
+  InlineCheckList,
+  InlineRadioList,
+  ValueState,
+  PasswordInput,
+} from 'Framework/Views/Components/Bootstrap';
 import {
   FormViewModel,
   CheckOptions,
@@ -42,6 +45,11 @@ export const Form: React.FC<FormProps> = ({
 
   const handleTextChange2 = useCallback((value: string) => {
     viewModel.text2 = value;
+    setViewModel(viewModel);
+  }, []);
+
+  const handlePasswordChange = useCallback((value: string) => {
+    viewModel.password = value;
     setViewModel(viewModel);
   }, []);
 
@@ -118,6 +126,15 @@ export const Form: React.FC<FormProps> = ({
           value={viewModel.text2}
           onChange={handleTextChange2}
           error={viewModel.errors.text2}
+        />
+      </div>
+      <div className="mb-3">
+        <PasswordInput
+          id="password"
+          labelText="Password"
+          value={viewModel.password}
+          onChange={handlePasswordChange}
+          error={viewModel.errors.password}
         />
       </div>
       <div className="mb-3">

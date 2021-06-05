@@ -16,6 +16,7 @@ debuglog('Wired', { formUseCase });
 const initState: Props = {
   text1: '',
   text2: '',
+  password: '',
   textArea: '',
   checkList: { C1: false, C2: false, C3: false, C4: false },
   radioList: '',
