@@ -16,9 +16,13 @@ export interface CreateRequest {
   inlineCheck: CheckValue[];
 }
 
-// TODO: implement these interfaces
-export interface UpdateRequest {} // eslint-disable-line @typescript-eslint/no-empty-interface
-export interface DeleteRequest {} // eslint-disable-line @typescript-eslint/no-empty-interface
+export interface UpdateRequest extends Partial<CreateRequest> {
+  id: string;
+}
+
+export interface DeleteRequest {
+  id: string;
+}
 
 export interface FooApiDriverInterface {
   create: <E>(data: CreateRequest) => Promise<ApiResponse<E>>;
