@@ -11,13 +11,13 @@ export const toCreateRequest: ToPersistentData<FormViewModel, CreateRequest> = (
   viewModel
 ) => {
   if (viewModel.radioList === '') {
-    throw new Error('radioList not satisfied the constraint');
+    throw new Error('radioList does not satisfy the constraint');
   }
   if (viewModel.select === '') {
-    throw new Error('select not satisfied the constraint');
+    throw new Error('select does not satisfy the constraint');
   }
   if (viewModel.inlineRadio === '') {
-    throw new Error('inlineRadio not satisfied the constraint');
+    throw new Error('inlineRadio does not satisfy the constraint');
   }
 
   const { inlineRadio, radioList, select, text1, text2, textArea } = viewModel;
