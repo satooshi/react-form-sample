@@ -53,5 +53,15 @@
     "react/prop-types": "off",
     "typescript-sort-keys/interface": "error",
     "typescript-sort-keys/string-enum": "error"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.stories.tsx"],
+      "rules": {
+        "react/jsx-props-no-spreading": "off",
+        "import/no-default-export": "off",
+        "@typescript-eslint/ban-types": "off"
+      }
+    }
+  ]
 }
