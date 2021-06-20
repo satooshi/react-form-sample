@@ -6,11 +6,17 @@ import { FormCheckLabel } from './Atoms/FormCheckLabel';
 import { Option, ValueState } from './Types';
 
 export interface Props {
+  /** Error message */
   error?: string;
+  /** HTML id attribute */
   id: string;
+  /** Label to the component */
   labelText: string;
+  /** Handles event on click check box */
   onChange: (value: ValueState) => void;
+  /** { label: '', value: ''} array */
   options: Option[];
+  /** Describes which checkboxes are checked by { value: checked } */
   values: ValueState;
 }
 
