@@ -11,7 +11,7 @@ export const FormLabel: React.FC<Props> = React.memo(({ id, labelText }) => {
 
   return (
     <label className="form-label" htmlFor={id}>
-      {labelText}:
+      {labelText}
     </label>
   );
 });
