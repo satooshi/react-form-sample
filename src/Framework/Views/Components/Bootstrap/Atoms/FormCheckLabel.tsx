@@ -1,7 +1,7 @@
 import { debuglog } from 'Utils';
 import React from 'react';
 
-interface Props {
+export interface Props {
   id: string;
   labelText: string;
 }

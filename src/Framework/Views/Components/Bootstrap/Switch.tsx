@@ -3,14 +3,14 @@ import React from 'react';
 import { ErrorMessage } from './Atoms/ErrorMessage';
 import { FormCheckLabel } from './Atoms/FormCheckLabel';
 
-type Props = {
+export interface Props {
   checked: boolean;
   error?: string;
   id: string;
   labelText: string;
   onChange: (value: boolean) => void;
   value: string;
-};
+}
 
 export const Switch: React.FC<Props> = React.memo(
   ({ checked, error, id, labelText, onChange, value }) => {

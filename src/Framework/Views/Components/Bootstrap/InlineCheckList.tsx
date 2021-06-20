@@ -5,14 +5,14 @@ import { FormCheckInput } from './Atoms/FormCheckInput';
 import { FormCheckLabel } from './Atoms/FormCheckLabel';
 import { Option, ValueState } from './Types';
 
-type Props = {
+export interface Props {
   error?: string;
   id: string;
   labelText: string;
   onChange: (value: ValueState) => void;
   options: Option[];
   values: ValueState;
-};
+}
 
 const propsAreEqual = (
   prevProps: Readonly<Props>,

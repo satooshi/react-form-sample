@@ -3,13 +3,13 @@ import React from 'react';
 import { ErrorMessage } from './Atoms/ErrorMessage';
 import { FormLabel } from './Atoms/FormLabel';
 
-type Props = {
+export interface Props {
   error?: string;
   id: string;
   labelText: string;
   onChange: (value: string) => void;
   value?: string;
-};
+}
 
 export const TextArea: React.FC<Props> = React.memo(
   ({ error, id, labelText, onChange, value }) => {

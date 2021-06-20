@@ -4,14 +4,14 @@ import { ErrorMessage } from './Atoms/ErrorMessage';
 import { FormLabel } from './Atoms/FormLabel';
 import { Option, Value } from './Types';
 
-type Props = {
+export interface Props {
   error?: string;
   id: string;
   labelText: string;
   onChange: (value: string) => void;
   options: Option[];
   value?: Value;
-};
+}
 
 const propsAreEqual = (
   prevProps: Readonly<Props>,

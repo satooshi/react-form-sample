@@ -1,9 +1,9 @@
 import { debuglog } from 'Utils';
 import React from 'react';
 
-type Props = {
+export interface Props {
   error?: string;
-};
+}
 
 export const ErrorMessage: React.FC<Props> = React.memo(({ error }) => {
   debuglog('render ErrorMessage', { error });

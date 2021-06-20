@@ -2,7 +2,7 @@ import { debuglog } from 'Utils';
 import React from 'react';
 import { Value } from '../Types';
 
-interface Props {
+export interface Props {
   checked: boolean;
   error?: string;
   id: string;

@@ -21,7 +21,7 @@ import {
 import { debuglog } from 'Utils';
 import React, { useCallback, useState } from 'react';
 
-interface FormProps {
+export interface Props {
   initialViewModel: FormViewModel;
   onSubmitSuccess?: (
     setViewModel: (nextViewModel: FormViewModel) => void
@@ -29,7 +29,7 @@ interface FormProps {
   useCase: FormUseCase;
 }
 
-export const Form: React.FC<FormProps> = ({
+export const Form: React.FC<Props> = ({
   useCase,
   initialViewModel,
   onSubmitSuccess,
